@@ -1,0 +1,12 @@
+import express from 'express';
+import { reportRouter } from './report.routes';
+import { expenseRouter } from './expense.routes';
+import { advanceRouter } from './advance.routes';
+import { incomeRouter } from './income.routes';
+
+export const router = express.Router();
+
+router.use("/report", reportRouter);
+router.use("/expense", expenseRouter);
+router.use("/advance", advanceRouter);
+router.use("/income", incomeRouter);
