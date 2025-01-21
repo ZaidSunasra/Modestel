@@ -19,7 +19,7 @@ export const db = new Pool({
 // CREATE TABLE reports (
 // 	id BIGSERIAL PRIMARY KEY,
 // 	room_no INTEGER NOT NULL,
-// 	bill_no INTEGER NOT NULL,
+// 	bill_no VARCHAR(30) NOT NULL,
 // 	tariff NUMERIC(8,2) NOT NULL,
 // 	c_gst NUMERIC(8,2) NOT NULL,
 // 	s_gst NUMERIC(8,2) NOT NULL,
@@ -47,6 +47,15 @@ export const db = new Pool({
 // 	amount NUMERIC(8,2) NOT NULL,
 // 	date DATE NOT NULL
 // );
+
+// CREATE TYPE user_options AS ENUM('admin', 'receptionist', 'user');
+// CREATE TABLE users (
+//     id SERIAL PRIMARY KEY,
+//     username VARCHAR(50) NOT NULL UNIQUE,
+//     password VARCHAR(255) NOT NULL,
+//     role user_options
+// );
+
 
 // CREATE INDEX idx_reports_date ON reports(report_date);
 // CREATE INDEX idx_reports_date_payment_booking ON reports(report_date, payment_mode, booking_mode);
