@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { loginSchema, signupSchema } from "../validations/auth.validations";
 import { addNewUser, findExistingUser } from "../services/auth.service";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const signupController = async (
