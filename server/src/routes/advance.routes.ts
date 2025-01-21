@@ -53,7 +53,7 @@ advanceRouter.get(
 advanceRouter.get(
   "/daily-total",
   authMiddleware,
-  checkRole(["admin", "user"]),
+  checkRole(["admin", "user", "receptionist"]),
   dailyTotalAdvanceController,
 );
 advanceRouter.get(
