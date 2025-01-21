@@ -1,17 +1,26 @@
-import { db } from "../config/db"
+import { db } from "../config/db";
 
 export const dailyTotalCashService = async (date: Date): Promise<any> => {
-    const query = await db.query("SELECT SUM(total) as total_cash FROM reports WHERE payment_mode = 'cash' AND report_date = $1", [date]);
-    return query.rows;
-}
+  const query = await db.query(
+    "SELECT SUM(total) as total_cash FROM reports WHERE payment_mode = 'cash' AND report_date = $1",
+    [date],
+  );
+  return query.rows;
+};
 
 export const dailyTotalBySourceService = async (date: Date): Promise<any> => {
-    const query = await db.query("SELECT SUM(tariff) as total_tariff , SUM(c_gst) as total_cgst, SUM(s_gst) as total_sgst, SUM(food) as total_food, SUM(laundry) as total_laundry, SUM(extra) as extra, SUM(total) as grand_total FROM reports WHERE report_date=$1", [date]);
-    return query.rows;
-}
+  const query = await db.query(
+    "SELECT SUM(tariff) as total_tariff , SUM(c_gst) as total_cgst, SUM(s_gst) as total_sgst, SUM(food) as total_food, SUM(laundry) as total_laundry, SUM(extra) as extra, SUM(total) as grand_total FROM reports WHERE report_date=$1",
+    [date],
+  );
+  return query.rows;
+};
 
-export const dailytotalByBookingModeService = async (date: Date): Promise<any> => {
-    const query = await db.query(`
+export const dailytotalByBookingModeService = async (
+  date: Date,
+): Promise<any> => {
+  const query = await db.query(
+    `
         SELECT 
             (enum_range(NULL::booking_options))[i] as booking_mode,
             COALESCE((SELECT SUM(total)
@@ -21,13 +30,16 @@ export const dailytotalByBookingModeService = async (date: Date): Promise<any> =
             ), 0) as total_amount
         FROM generate_series(1, array_length(enum_range(NULL::booking_options), 1)) i
         ORDER BY booking_mode `,
-        [date]
-    );
-    return query.rows;
-}
+    [date],
+  );
+  return query.rows;
+};
 
-export const dailyTotalByPaymentModeService = async (date: Date): Promise<any> => {
-    const query = await db.query(`
+export const dailyTotalByPaymentModeService = async (
+  date: Date,
+): Promise<any> => {
+  const query = await db.query(
+    `
         SELECT 
             (enum_range(NULL::payment_options))[i] as payment_mode,
             COALESCE((SELECT SUM(total)
@@ -37,13 +49,13 @@ export const dailyTotalByPaymentModeService = async (date: Date): Promise<any> =
             ), 0) as total_amount
         FROM generate_series(1, array_length(enum_range(NULL::payment_options), 1)) i
         ORDER BY payment_mode`,
-        [date]
-    );
-    return query.rows;
-}
+    [date],
+  );
+  return query.rows;
+};
 
 export const monthlyTotalBySourceService = async (): Promise<any> => {
-    const query = await db.query(`
+  const query = await db.query(`
         WITH date_series AS (
             SELECT date_trunc('day', date)::date AS report_date
             FROM generate_series(
@@ -64,13 +76,12 @@ export const monthlyTotalBySourceService = async (): Promise<any> => {
         FROM date_series ds
         LEFT JOIN reports r ON DATE(r.report_date) = ds.report_date
         GROUP BY ds.report_date
-        ORDER BY ds.report_date`
-    );
-    return query.rows;
-}
+        ORDER BY ds.report_date`);
+  return query.rows;
+};
 
-export const monthlyTotalByBookingModeService = async() : Promise <any> => {
-    const query = await db.query(`
+export const monthlyTotalByBookingModeService = async (): Promise<any> => {
+  const query = await db.query(`
         WITH date_series AS (
             SELECT 
                 generate_series(
@@ -94,13 +105,12 @@ export const monthlyTotalByBookingModeService = async() : Promise <any> => {
             reports r ON DATE(r.report_date) = ds.report_date 
             AND r.booking_mode = bm.booking_mode
         GROUP BY ds.report_date, bm.booking_mode
-        ORDER BY ds.report_date, booking_mode`
-    );
-    return query.rows;
-}
+        ORDER BY ds.report_date, booking_mode`);
+  return query.rows;
+};
 
-export const monthlyTotalService = async () : Promise<any> => {
-    const query = await db.query(`
+export const monthlyTotalService = async (): Promise<any> => {
+  const query = await db.query(`
         WITH date_series AS (
             SELECT 
                 generate_series(
@@ -119,13 +129,12 @@ export const monthlyTotalService = async () : Promise<any> => {
         ON 
             ds.expense_date = r.report_date
         GROUP BY ds.expense_date
-        ORDER BY ds.expense_date`
-    );
-    return query.rows;
-}
+        ORDER BY ds.expense_date`);
+  return query.rows;
+};
 
-export const monthlyTotalCashService = async()  :Promise <any> => {
-    const query = await db.query(`
+export const monthlyTotalCashService = async (): Promise<any> => {
+  const query = await db.query(`
         WITH date_series AS (
             SELECT 
                 generate_series(
@@ -145,7 +154,6 @@ export const monthlyTotalCashService = async()  :Promise <any> => {
             ds.expense_date = r.report_date
             AND r.payment_mode = 'cash' 
         GROUP BY ds.expense_date
-        ORDER BY ds.expense_date`
-    );
-    return query.rows;
-}
+        ORDER BY ds.expense_date`);
+  return query.rows;
+};

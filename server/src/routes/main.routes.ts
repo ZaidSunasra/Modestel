@@ -1,9 +1,9 @@
-import express from 'express';
-import { reportRouter } from './report.routes';
-import { expenseRouter } from './expense.routes';
-import { advanceRouter } from './advance.routes';
-import { incomeRouter } from './income.routes';
-import { authRouter } from './auth.routes';
+import express from "express";
+import { reportRouter } from "./report.routes";
+import { expenseRouter } from "./expense.routes";
+import { advanceRouter } from "./advance.routes";
+import { incomeRouter } from "./income.routes";
+import { authRouter } from "./auth.routes";
 
 export const router = express.Router();
 

@@ -1,16 +1,15 @@
-import { Pool } from 'pg';
-import env from 'dotenv';
+import { Pool } from "pg";
+import env from "dotenv";
 
 env.config();
 
 export const db = new Pool({
-    user: 'postgres',
-    database: 'Modestel',
-    password: `${process.env.DATABASE_PASSWORD}`,
-    host: 'localhost',
-    port: 5432
+  user: "postgres",
+  database: "Modestel",
+  password: `${process.env.DATABASE_PASSWORD}`,
+  host: "localhost",
+  port: 5432,
 });
-
 
 //Database Schema
 
@@ -55,7 +54,6 @@ export const db = new Pool({
 //     password VARCHAR(255) NOT NULL,
 //     role user_options
 // );
-
 
 // CREATE INDEX idx_reports_date ON reports(report_date);
 // CREATE INDEX idx_reports_date_payment_booking ON reports(report_date, payment_mode, booking_mode);

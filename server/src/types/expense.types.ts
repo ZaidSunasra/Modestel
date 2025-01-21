@@ -1,12 +1,12 @@
 export type addExpenseType = {
-    voucher: string,
-    name: string,
-    amount: string,
-    date: string
-}
+  voucher: string;
+  name: string;
+  amount: string;
+  date: string;
+};
 
 export type editExpenseType = {
-    voucher: string,
-    name: string,
-    amount: string
-}
+  voucher: string;
+  name: string;
+  amount: string;
+};
