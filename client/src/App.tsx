@@ -1,9 +1,11 @@
+import { Router } from "./routes/routes";
+import { Toaster } from "./components/ui/toaster";
+
 const App = () => {
-  return (
-    <div>
-      <h1>Hi, from frontend</h1>
-    </div>
-  )
+  return <>
+    <Toaster />
+    <Router />
+  </>
 }
 
 export default App;
