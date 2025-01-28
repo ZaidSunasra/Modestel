@@ -17,7 +17,7 @@ export const getDailyIncomeByPaymentMode = () => {
 
 export const getDailyIncomeByBookingMode = () => {
     return useQuery({
-        queryKey: ['daily-income-payment-mode'],
+        queryKey: ['daily-income-booking-mode'],
         queryFn: dailyIncomeByBookingMode
     })
 }
