@@ -2,7 +2,7 @@ import { db } from "../config/db";
 
 export const dailyTotalCashService = async (date: Date): Promise<any> => {
   const query = await db.query(
-    "SELECT SUM(total) as total_cash FROM reports WHERE payment_mode = 'cash' AND report_date = $1",
+    "SELECT COALESCE(SUM(total),0) as total_cash FROM reports WHERE payment_mode = 'cash' AND report_date = $1",
     [date],
   );
   return query.rows;
@@ -10,7 +10,7 @@ export const dailyTotalCashService = async (date: Date): Promise<any> => {
 
 export const dailyTotalBySourceService = async (date: Date): Promise<any> => {
   const query = await db.query(
-    "SELECT SUM(tariff) as total_tariff , SUM(c_gst) as total_cgst, SUM(s_gst) as total_sgst, SUM(food) as total_food, SUM(laundry) as total_laundry, SUM(extra) as extra, SUM(total) as grand_total FROM reports WHERE report_date=$1",
+    "SELECT COALESCE(SUM(tariff),0) as total_tariff , COALESCE(SUM(c_gst),0) as total_cgst, COALESCE(SUM(s_gst),0)  as total_sgst, COALESCE(SUM(food),0)  as total_food, COALESCE(SUM(laundry),0)  as total_laundry, COALESCE(SUM(extra),0)  as extra, COALESCE(SUM(total),0)  as grand_total FROM reports WHERE report_date=$1",
     [date],
   );
   return query.rows;

@@ -44,7 +44,7 @@ export const deleteAdvanceService = async (id: string): Promise<void> => {
 
 export const dailyTotalAdvanceService = async (date: Date): Promise<any> => {
   const query = await db.query(
-    "SELECT SUM(amount) as daily_total FROM staff_advance_details WHERE date=$1",
+    "SELECT COALESCE(SUM(amount),0) as daily_total FROM staff_advance_details WHERE date=$1",
     [date],
   );
   return query.rows;
