@@ -1,5 +1,8 @@
+import BankDetail from "@/components/BankDetailsTable";
+import BookingDetail from "@/components/BookingDetailsTable";
 import CashReport from "@/components/CashReportTable";
 import ReportTable from "@/components/DailyReportTable";
+import ExpenseDetail from "@/components/ExpenseDetailTable";
 import SideBar from "@/components/SideBar";
 import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
@@ -17,6 +20,9 @@ const Report = () => {
                 <ReportTable />
                 <div className="flex">
                     <CashReport />
+                    <BankDetail />
+                    <BookingDetail />
+                    <ExpenseDetail />
                 </div>
             </div>
         </div>

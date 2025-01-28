@@ -1,13 +1,24 @@
 import { fetchDailyReport } from "@/queries/reportQueries";
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "./ui/table";
 import { getDailyIncomeBySources } from "@/queries/incomeQueries";
+import { Button } from "./ui/button";
+import { Pencil, Trash2 } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog";
+import { useState } from "react";
+import { useDeleteReport } from "@/mutations/reportMutation";
 
 const ReportTable = () => {
 
-    const { data: reportData, isPending: reportPending, isError: reportIsError, error: reportError} = fetchDailyReport();
-    const { data: incomeData, isPending: incomePending, isError: incomeIsError, error: incomeError} = getDailyIncomeBySources();
-    console.log(reportData);
-    console.log(incomeData);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [id, setId] = useState<string>("");
+    const { data: reportData, isPending: reportPending, isError: reportIsError } = fetchDailyReport();
+    const { data: incomeData, isPending: incomePending, isError: incomeIsError } = getDailyIncomeBySources();
+    const mutation = useDeleteReport();
+
+    const handleDelete = (id: string) => {
+        mutation.mutate(id);
+        setIsOpen(false);
+    }
 
     if (incomePending || reportPending) {
         return <h1> Loading </h1>
@@ -17,7 +28,7 @@ const ReportTable = () => {
         return <div>Error while fetching Result</div>
     }
 
-    return <div className="max-h-[50vh] overflow-y-auto mb-4">
+    return <div className="max-h-[50vh] h-[50vh] overflow-y-auto mb-4">
         <Table className="border-border border-2">
             <TableHeader>
                 <TableRow>
@@ -35,7 +46,7 @@ const ReportTable = () => {
                     <TableHead> Action </TableHead>
                 </TableRow>
             </TableHeader>
-            <TableBody className="h-[50vh]">
+            <TableBody>
                 {reportData.reports.map((data: any) => (
                     <TableRow key={data.id}>
                         <TableCell>{data.room_no}</TableCell>
@@ -47,15 +58,28 @@ const ReportTable = () => {
                         <TableCell>{data.laundry}</TableCell>
                         <TableCell>{data.extra}</TableCell>
                         <TableCell>{data.total}</TableCell>
-                        <TableCell>{data.payment_mode}</TableCell>
-                        <TableCell>{data.booking_mode}</TableCell>
-                        <TableCell></TableCell>
+                        <TableCell className="capitalize">{data.payment_mode}</TableCell>
+                        <TableCell className="capitalize">{data.booking_mode}</TableCell>
+                        <TableCell className="flex gap-5">
+                            <Button className="bg-secondary text-green-500 h-10 w-10 p-0">
+                                <Pencil />
+                            </Button>
+                            <Button  
+                            className="bg-secondary text-red-500 h-10 w-10 p-0"
+                            onClick={() => {
+                                setIsOpen(true);
+                                setId(data.id);
+                            }}
+                            >
+                                <Trash2 />
+                            </Button>
+                        </TableCell>
                     </TableRow>
                 ))}
             </TableBody>
             <TableFooter>
                 {incomeData.response.map((data: any) => (
-                    <TableRow>
+                    <TableRow key="total">
                         <TableCell colSpan={2} className="text-center">Total</TableCell>
                         <TableCell>{data.total_tariff}</TableCell>
                         <TableCell>{data.total_cgst}</TableCell>
@@ -64,10 +88,34 @@ const ReportTable = () => {
                         <TableCell>{data.total_laundry}</TableCell>
                         <TableCell>{data.extra}</TableCell>
                         <TableCell>{data.grand_total}</TableCell>
+                        <TableCell colSpan={3}></TableCell>
                     </TableRow>
                 ))}
             </TableFooter>
         </Table>
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Delete Report</DialogTitle>
+            <DialogDescription className="text-red-500">
+              Are you sure? This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="sm:justify-start">
+            <Button
+              type="submit"
+              className="px-3 flex gap-1 items-center"
+              variant="destructive"
+              onClick={() => {
+                handleDelete(id)
+              }}
+            >
+              <span> Delete</span>
+              <Trash2 />
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+        </Dialog>
     </div>
 }
 
