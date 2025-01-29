@@ -19,7 +19,6 @@ const AddReport = () => {
 
     const onSubmit = (data: AddReportInputs) => {
         const formattedData = formatAddReportData(data);
-        console.log(formattedData);
         addReportMutation.mutate(formattedData);
     }
 
