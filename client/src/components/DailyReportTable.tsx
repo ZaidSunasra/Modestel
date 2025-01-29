@@ -31,7 +31,7 @@ const ReportTable = () => {
         return <div>Error while fetching Result</div>
     }
 
-    return <div className="max-h-[50vh] h-[50vh] overflow-y-auto mb-4">
+    return <div className="max-h-[90vh] h-[90vh] overflow-y-auto mb-4">
         <Table className="border-border border-2">
             <TableHeader>
                 <TableRow>
@@ -61,8 +61,8 @@ const ReportTable = () => {
                         <TableCell>{data.laundry}</TableCell>
                         <TableCell>{data.extra}</TableCell>
                         <TableCell>{data.total}</TableCell>
-                        <TableCell className="capitalize">{data.payment_mode}</TableCell>
-                        <TableCell className="capitalize">{data.booking_mode}</TableCell>
+                        <TableCell className="uppercase">{data.payment_mode}</TableCell>
+                        <TableCell className="uppercase">{data.booking_mode}</TableCell>
                         <TableCell className="flex gap-5">
                             <Button
                                 className="bg-secondary text-green-500 h-10 w-10 p-0"
