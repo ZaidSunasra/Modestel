@@ -23,7 +23,7 @@ const AddReport = () => {
     }
 
     return <div className="h-screen w-screen flex flex-col justify-center items-center font-mono bg-background">
-        <div className="p-4 flex justify-start w-full">
+        <div className="p-4 flex justify-start w-full top-0 absolute">
             <Button
                 onClick={() => {
                     navigate("/dailyReport");
