@@ -6,17 +6,20 @@ import { Pencil, Trash2 } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog";
 import { useState } from "react";
 import { useDeleteReport } from "@/mutations/reportMutation";
+import { useNavigate } from "react-router";
 
 const ReportTable = () => {
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [id, setId] = useState<string>("");
+    const navigate = useNavigate();
     const { data: reportData, isPending: reportPending, isError: reportIsError } = fetchDailyReport();
     const { data: incomeData, isPending: incomePending, isError: incomeIsError } = getDailyIncomeBySources();
-    const mutation = useDeleteReport();
+    const deleteReportMutation = useDeleteReport();
 
     const handleDelete = (id: string) => {
-        mutation.mutate(id);
+        deleteReportMutation.mutate(id);
+        setId("");
         setIsOpen(false);
     }
 
@@ -61,15 +64,20 @@ const ReportTable = () => {
                         <TableCell className="capitalize">{data.payment_mode}</TableCell>
                         <TableCell className="capitalize">{data.booking_mode}</TableCell>
                         <TableCell className="flex gap-5">
-                            <Button className="bg-secondary text-green-500 h-10 w-10 p-0">
+                            <Button
+                                className="bg-secondary text-green-500 h-10 w-10 p-0"
+                                onClick={() => {
+                                    navigate(`/editReport/${data.id}`);
+                                }}
+                            >
                                 <Pencil />
                             </Button>
-                            <Button  
-                            className="bg-secondary text-red-500 h-10 w-10 p-0"
-                            onClick={() => {
-                                setIsOpen(true);
-                                setId(data.id);
-                            }}
+                            <Button
+                                className="bg-secondary text-red-500 h-10 w-10 p-0"
+                                onClick={() => {
+                                    setId(data.id);
+                                    setIsOpen(true);
+                                }}
                             >
                                 <Trash2 />
                             </Button>
@@ -94,27 +102,27 @@ const ReportTable = () => {
             </TableFooter>
         </Table>
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Delete Report</DialogTitle>
-            <DialogDescription className="text-red-500">
-              Are you sure? This action cannot be undone.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter className="sm:justify-start">
-            <Button
-              type="submit"
-              className="px-3 flex gap-1 items-center"
-              variant="destructive"
-              onClick={() => {
-                handleDelete(id)
-              }}
-            >
-              <span> Delete</span>
-              <Trash2 />
-            </Button>
-          </DialogFooter>
-        </DialogContent>
+            <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                    <DialogTitle>Delete Report</DialogTitle>
+                    <DialogDescription className="text-red-500">
+                        Are you sure? This action cannot be undone.
+                    </DialogDescription>
+                </DialogHeader>
+                <DialogFooter className="sm:justify-start">
+                    <Button
+                        type="submit"
+                        className="px-3 flex gap-1 items-center"
+                        variant="destructive"
+                        onClick={() => {
+                            handleDelete(id)
+                        }}
+                    >
+                        <span> Delete</span>
+                        <Trash2 />
+                    </Button>
+                </DialogFooter>
+            </DialogContent>
         </Dialog>
     </div>
 }
