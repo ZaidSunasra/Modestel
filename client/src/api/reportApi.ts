@@ -1,4 +1,4 @@
-import { AddReportInputs } from "@/lib/types";
+import { AddReportInputs, EditReportInputs } from "@/lib/types";
 import axiosInstance from "./axiosInstance";
 
 export  const fetchReports = async() : Promise<any> => {
@@ -16,7 +16,12 @@ export const addReport = async (data: AddReportInputs) : Promise<any>  => {
     return response.data;
 }
 
-export const editReport = async (data: any, id: string) : Promise<any> => {
+export const editReport = async ({data, id} : {data: EditReportInputs, id:any}) : Promise<any> => {
     const response = await axiosInstance.put(`/report/edit/${id}`, data);
     return response.data;
 } 
+
+export const getReportById = async (id: string) : Promise<any> => {
+    const response = await axiosInstance.get(`/report/get/${id}`);
+    return response.data;
+}
