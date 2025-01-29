@@ -1,6 +1,6 @@
 export const totalBankAmount = (data : any) => {
     let bankTotal = 0;
-    for(let i=0; i<data.response.length; i++){
+    for(let i=1; i<data.response.length; i++){
         bankTotal += parseFloat(data.response[i].total_amount);
     }
     return bankTotal;
