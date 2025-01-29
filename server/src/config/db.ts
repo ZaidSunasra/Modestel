@@ -17,8 +17,8 @@ export const db = new Pool({
 // CREATE TYPE booking_options AS ENUM('walking', 'ota', 'company', 'banquet', 'wastage', 'extra');
 // CREATE TABLE reports (
 // 	id BIGSERIAL PRIMARY KEY,
-// 	room_no INTEGER NOT NULL,
-// 	bill_no VARCHAR(30) NOT NULL,
+// 	room_no VARCHAR(50) NOT NULL,
+// 	bill_no VARCHAR(50) NOT NULL,
 // 	tariff NUMERIC(8,2) NOT NULL,
 // 	c_gst NUMERIC(8,2) NOT NULL,
 // 	s_gst NUMERIC(8,2) NOT NULL,
