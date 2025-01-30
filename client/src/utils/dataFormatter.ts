@@ -23,3 +23,20 @@ export const formatAddAdvanceData = (data: AddAdvanceInput) => {
     return data;
 }
 
+export const formatDatetoIST = (date: string) => {
+    return new Intl.DateTimeFormat('en-IN', {
+        timeZone: "Asia/Kolkata",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+    }).format(new Date(date))
+}
+
+export const formatMonthlyIncomeBySourceData = (data: any) => {
+    const updateData = data.response.map((item: any) => ({
+        ...item,
+        report_date: formatDatetoIST(item.report_date)
+    }));
+    return updateData;
+}
+

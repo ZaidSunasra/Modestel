@@ -4,6 +4,7 @@ import Report from "@/pages/DailyReportsPage"
 import AddReport from "@/pages/AddReportPage"
 import EditReport from "@/pages/EditReportPage"
 import DailyExpense from "@/pages/DailyExpensePage"
+import MonthlyIncome from "@/pages/MonthlyIncomePage"
 
 export const Router = () => {
 
@@ -21,8 +22,12 @@ export const Router = () => {
                         <Route path="/dailyExpense" element={<DailyExpense />} />
                     </>
                 ) : null}
+                {role === "admin" ? (
+                    <>
+                    <Route path="/monthlyIncome" element={<MonthlyIncome />} />
+                    </>
+                ) : null}
             </Routes>
         </BrowserRouter>
-
     </>
 }
