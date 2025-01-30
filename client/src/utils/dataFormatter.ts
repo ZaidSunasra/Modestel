@@ -1,4 +1,4 @@
-import { AddReportInputs, EditReportInputs } from "@/lib/types";
+import { AddAdvanceInput, AddReportInputs, EditReportInputs } from "@/lib/types";
 import { format } from "date-fns";
 
 const date = format(new Date(), "yyyy-MM-dd");
@@ -17,3 +17,9 @@ export const formatEditReportData = (data: EditReportInputs) => {
     data.total = parseFloat(data.tariff) + data.c_gst + data.s_gst + parseFloat(data.food) + parseFloat(data.laundry) + parseFloat(data.extra);
     return data;
 }
+
+export const formatAddAdvanceData = (data: AddAdvanceInput) => {
+    data.date = date;
+    return data;
+}
+

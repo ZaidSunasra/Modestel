@@ -31,3 +31,27 @@ export type EditReportInputs = {
     payment_mode: string,
     booking_mode: string,
 }
+
+export type AddAdvanceInput = {
+    name: string,
+    amount: string,
+    date: string
+}
+
+export type EditAdvanceInput = {
+    name: string,
+    amount: string,
+}
+
+export type AddExpenseInput = {
+    voucher: string,
+    amount: string,
+    date: string,
+    name: string
+}
+
+export type EditExpenseInput = {
+    voucher: string,
+    amount: string,
+    name: string
+}
