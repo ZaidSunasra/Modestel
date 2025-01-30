@@ -112,7 +112,7 @@ const ExpenseList = () => {
                         <>
                             <DialogHeader>
                                 <DialogTitle> Add Expense </DialogTitle>
-                                <DialogDescription>Enter the details to record an advance payment issued to an employee.</DialogDescription>
+                                <DialogDescription>Enter the details to record a new expense.</DialogDescription>
                             </ DialogHeader>
                             <AddExpense  onSubmit={handleAddExpense}/>
                         </>
@@ -121,7 +121,7 @@ const ExpenseList = () => {
                         <>
                             <DialogHeader>
                                 <DialogTitle> Edit Expense   </DialogTitle>
-                                <DialogDescription>Update the details of the advance given to the employee.</DialogDescription>
+                                <DialogDescription>Update the details of the recorded expense.</DialogDescription>
                             </DialogHeader>
                             <EditExpense onSubmit={handleEditExpense} value={data} />
                         </>
@@ -129,7 +129,7 @@ const ExpenseList = () => {
                         <>
                             <DialogHeader>
                                 <DialogTitle> Delete Expense </DialogTitle>
-                                <DialogDescription>Are you sure you want to delete this advance entry? This action cannot be undone.</DialogDescription>
+                                <DialogDescription>Are you sure you want to delete this expense entry? This action cannot be undone.</DialogDescription>
                             </DialogHeader>
                             <DialogFooter className="sm:justify-start">
                                 <Button
