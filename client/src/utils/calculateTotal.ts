@@ -50,3 +50,19 @@ export const netExpenseBySource = (data: any) => {
     
     return {hotel, kitchen, room_service, cash_discount, auto_expense, total}
 }
+
+export const netIncomeByBooking = (data: any) => {
+    let walking = 0, ota = 0, company = 0, banquet = 0, wastage = 0, extra = 0, total = 0;
+    
+    for(let i=0; i<data.length; i++){
+       walking += parseFloat(data[i].walking) 
+       ota += parseFloat(data[i].ota)
+       company += parseFloat(data[i].company)
+       banquet += parseFloat(data[i].banquet)
+       wastage += parseFloat(data[i].wastage)
+       extra += parseFloat(data[i].extra)
+       total += parseFloat(data[i].net_total)
+    }
+    
+    return {walking, ota, company, banquet, wastage, extra, total};
+}

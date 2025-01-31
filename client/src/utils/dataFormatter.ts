@@ -61,3 +61,25 @@ export const formatMonthlyExpenseBySourceData = (data: any) => {
         return acc;
     }, []);
 }
+
+export const formatMonthlyIncomeByBookingData = (data: any) => {
+    const updatedData = data.response.map((item: any) => ({
+        ...item,
+        report_date: formatDatetoIST(item.report_date)
+    }))
+    return updatedData.reduce((acc: any, item: any) => {
+        const { report_date, booking_mode, total_amount } = item;
+
+        let existingEntry = acc.find((entry: any) => entry.report_date === report_date);
+
+        if (!existingEntry) {
+            existingEntry = { report_date, net_total : 0};
+            acc.push(existingEntry);
+        }
+
+        existingEntry[booking_mode] = total_amount;
+        existingEntry.net_total += parseFloat(total_amount); 
+
+        return acc;
+    }, []);
+}

@@ -24,3 +24,8 @@ export const monthlyIncomeBySources = async (): Promise<any> => {
     const response = await axiosInstance.get("/income/monthly-totals/by-source");
     return response.data;
 }
+
+export const monthlyIncomeByBookingMode = async() : Promise<any> => {
+    const response = await axiosInstance.get("/income/monthly-totals/by-booking-mode");
+    return response.data;
+}

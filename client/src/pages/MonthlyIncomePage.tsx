@@ -13,7 +13,6 @@ const MonthlyIncome = () => {
    if(isPending) return <div>Loading</div>
 
    const formattedData = formatMonthlyIncomeBySourceData(data);
-   console.log(formattedData);
    const {tariff, cgst, sgst, food, laundry, extra, total} = netIncomeBySources(formattedData);
 
     return <div className="w-screen h-screen flex font-mono bg-background">

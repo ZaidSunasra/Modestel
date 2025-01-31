@@ -12,7 +12,6 @@ const MonthlyExpense = () => {
     if (isPending) return <div>Loading...</div>
 
     const formattedData = formatMonthlyExpenseBySourceData(data);
-
     const {hotel, kitchen, room_service, cash_discount, auto_expense, total} = netExpenseBySource(formattedData);
 
     return <div className="h-screen w-screen font-mono flex bg-background">
