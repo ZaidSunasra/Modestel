@@ -8,7 +8,7 @@ import SideBar from "@/components/SideBar";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
 const DailyExpense = () => {
-    return <div className="w-screen h-screen flex">
+    return <div className="w-screen h-screen flex font-mono bg-background">
         <SideBar />
         <SidebarTrigger />
         <div className="w-full p-4">

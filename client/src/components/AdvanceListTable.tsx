@@ -67,7 +67,7 @@ const AdvanceList = () => {
                 </TableHeader>
                 <TableBody>
                     {fetchData.advances.map((advance: any) => (
-                        <TableRow key={advance.id}>
+                        <TableRow key={advance.id} className="text-primary">
                             <TableCell className="uppercase">{advance.staff_name}</TableCell>
                             <TableCell>{advance.amount}</TableCell>
                             <TableCell className="flex gap-5">
@@ -96,8 +96,8 @@ const AdvanceList = () => {
                     ))}
                 </TableBody>
                 <TableFooter>
-                    <TableRow>
-                        <TableCell colSpan={2}>Total</TableCell>
+                    <TableRow className="text-primary font-bold">
+                        <TableCell>Total</TableCell>
                         <TableCell colSpan={2}>{totalAdvance.response[0].daily_total}</TableCell>
                     </TableRow>
                 </TableFooter>

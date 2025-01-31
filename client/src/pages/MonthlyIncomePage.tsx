@@ -16,7 +16,7 @@ const MonthlyIncome = () => {
    console.log(formattedData);
    const {tariff, cgst, sgst, food, laundry, extra, total} = netIncomeBySources(formattedData);
 
-    return <div className="w-screen h-screen flex">
+    return <div className="w-screen h-screen flex font-mono bg-background">
         <SideBar />
         <SidebarTrigger />
         <div className="w-full p-4">
@@ -36,7 +36,7 @@ const MonthlyIncome = () => {
                 </TableHeader>
                 <TableBody>
                     {formattedData.map((data : any) => (
-                        <TableRow key={data.report_date}>
+                        <TableRow key={data.report_date} className="text-primary">
                             <TableCell>{data.report_date}</TableCell>
                             <TableCell>{data.total_tariff}</TableCell>
                             <TableCell>{data.total_cgst}</TableCell>
@@ -49,7 +49,7 @@ const MonthlyIncome = () => {
                     ))}
                 </TableBody>
                 <TableFooter>
-                    <TableRow>
+                    <TableRow className="text-primary font-bold">
                         <TableCell>Total</TableCell>
                         <TableCell>{tariff}</TableCell>
                         <TableCell>{cgst}</TableCell>

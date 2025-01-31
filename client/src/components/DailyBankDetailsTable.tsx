@@ -24,7 +24,7 @@ const BankDetail = () => {
                     <TableHead colSpan={2}>Bank Details</TableHead>
                 </TableRow>
             </TableHeader>
-            <TableBody>
+            <TableBody className="text-primary">
                 <TableRow className="capitalize">
                     <TableCell className=" font-semibold">{data.response[1].payment_mode}</TableCell>
                     <TableCell>{data.response[1].total_amount}</TableCell>
@@ -50,7 +50,7 @@ const BankDetail = () => {
                     <TableCell>{data.response[0].total_amount}</TableCell>
                 </TableRow>
             </TableBody>
-            <TableFooter>
+            <TableFooter className="text-primary font-bold">
                 <TableRow>
                     <TableCell>Total Sale</TableCell>
                     <TableCell>{netTotal}</TableCell>

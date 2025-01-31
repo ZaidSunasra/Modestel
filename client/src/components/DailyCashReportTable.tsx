@@ -30,7 +30,7 @@ const CashReport = () => {
                     <TableHead colSpan={2}>Cash Report</TableHead>
                 </TableRow>
             </TableHeader>
-            <TableBody>
+            <TableBody className="text-primary">
                 <TableRow className="capitalize">
                     <TableCell className="font-semibold">Cash</TableCell>
                     <TableCell> {cashData.response[0].total_cash}</TableCell>
@@ -63,7 +63,7 @@ const CashReport = () => {
                     <TableCell></TableCell>
                 </TableRow>
             </TableBody>
-            <TableFooter>
+            <TableFooter className="text-primary font-bold">
                 <TableRow>
                     <TableCell> Cash/Due </TableCell>
                     <TableCell>{cash}</TableCell>

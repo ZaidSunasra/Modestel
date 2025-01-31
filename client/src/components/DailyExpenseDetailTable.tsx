@@ -25,7 +25,7 @@ const ExpenseDetail = () => {
             </TableHeader>
             <TableBody>
                 {data.response.map((data: any) => (
-                    <TableRow className="capitalize" key={data.voucher}>
+                    <TableRow className="capitalize text-primary" key={data.voucher}>
                         <TableCell className="font-semibold"> {data.voucher}</TableCell>
                         <TableCell> {data.total_amount}</TableCell>
                     </TableRow>
@@ -36,7 +36,7 @@ const ExpenseDetail = () => {
                 </TableRow>
             </TableBody>
             <TableFooter>
-                <TableRow>
+                <TableRow className="text-primary font-bold">
                     <TableCell>Total Expense</TableCell>
                     <TableCell>{netTotal}</TableCell>
                 </TableRow>

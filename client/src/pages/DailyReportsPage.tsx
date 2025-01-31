@@ -9,7 +9,7 @@ const Report = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="w-screen h-screen flex">
+        <div className="w-screen h-screen flex font-mono bg-background">
             <SideBar />
             <SidebarTrigger />
             <div className="w-full p-4">

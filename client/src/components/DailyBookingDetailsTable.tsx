@@ -25,14 +25,14 @@ const BookingDetail = () => {
             </TableHeader>
             <TableBody>
                 {data.response.map((data: any) => (
-                    <TableRow className="capitalize" key={data.booking_mode}>
+                    <TableRow className="capitalize text-primary" key={data.booking_mode}>
                         <TableCell className="font-semibold"> {data.booking_mode}</TableCell>
                         <TableCell> {data.total_amount}</TableCell>
                     </TableRow>
                 ))}
             </TableBody>
             <TableFooter>
-                <TableRow>
+                <TableRow className="text-primary font-bold">
                     <TableCell> Total </TableCell>
                     <TableCell> {netTotal}</TableCell>
                 </TableRow>

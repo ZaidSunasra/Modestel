@@ -70,7 +70,7 @@ const ExpenseList = () => {
                 </TableHeader>
                 <TableBody>
                     {fetchData.expenses.map((expense: any) => (
-                        <TableRow key={expense.id}>
+                        <TableRow key={expense.id} className="text-primary">
                             <TableCell className="uppercase">{expense.voucher}</TableCell>
                             <TableCell className="uppercase">{expense.expense_name}</TableCell>
                             <TableCell>{expense.amount}</TableCell>
@@ -100,7 +100,7 @@ const ExpenseList = () => {
                     ))}
                 </TableBody>
                 <TableFooter>
-                    <TableRow>
+                    <TableRow className="text-primary font-bold">
                         <TableCell colSpan={2}>Total</TableCell>
                         <TableCell colSpan={2}>{totalData.response[0].daily_total}</TableCell>
                     </TableRow>

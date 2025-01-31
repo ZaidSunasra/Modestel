@@ -51,7 +51,7 @@ const ReportTable = () => {
             </TableHeader>
             <TableBody>
                 {reportData.reports.map((data: any) => (
-                    <TableRow key={data.id}>
+                    <TableRow key={data.id} className="text-primary">
                         <TableCell>{data.room_no}</TableCell>
                         <TableCell>{data.bill_no}</TableCell>
                         <TableCell>{data.tariff}</TableCell>
@@ -87,7 +87,7 @@ const ReportTable = () => {
             </TableBody>
             <TableFooter>
                 {incomeData.response.map((data: any) => (
-                    <TableRow key="total">
+                    <TableRow key="total" className="text-primary font-bold">
                         <TableCell colSpan={2} className="text-center">Total</TableCell>
                         <TableCell>{data.total_tariff}</TableCell>
                         <TableCell>{data.total_cgst}</TableCell>
