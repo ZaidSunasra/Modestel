@@ -29,3 +29,8 @@ export const deleteExpense = async(id: string): Promise<any> => {
     const response = await axiosInstance.delete(`/expense/delete/${id}`);
     return response.data;
 }
+
+export const monthlyExpenseByCategory = async () : Promise<any> => {
+    const response = await axiosInstance.get("/expense/monthly-totals/by-category");
+    return response.data;
+}

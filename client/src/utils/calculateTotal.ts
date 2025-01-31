@@ -35,3 +35,18 @@ export const netIncomeBySources = (data: any) => {
     return {tariff, cgst, sgst, food, laundry, extra, total};
 
 }
+
+export const netExpenseBySource = (data: any) => {
+    let hotel = 0, kitchen = 0, room_service = 0, cash_discount = 0, auto_expense = 0, total = 0;
+    
+    for(let i=0; i<data.length; i++){
+        hotel += parseFloat(data[i]["hotel"]);
+        kitchen += parseFloat(data[i]["kitchen"]);
+        room_service += parseFloat(data[i]["room service"]);
+        cash_discount += parseFloat(data[i]["cash discount"]);
+        auto_expense += parseFloat(data[i]["auto expense"]);
+        total += parseFloat(data[i]["net_total"]);
+    }
+    
+    return {hotel, kitchen, room_service, cash_discount, auto_expense, total}
+}

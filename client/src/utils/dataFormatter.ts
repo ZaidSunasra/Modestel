@@ -40,3 +40,24 @@ export const formatMonthlyIncomeBySourceData = (data: any) => {
     return updateData;
 }
 
+export const formatMonthlyExpenseBySourceData = (data: any) => {
+    const updatedData = data.response.map((item: any) => ({
+        ...item,
+        expense_date: formatDatetoIST(item.expense_date)
+    }))
+    return updatedData.reduce((acc: any, item: any) => {
+        const { expense_date, voucher, total_amount } = item;
+
+        let existingEntry = acc.find((entry: any) => entry.expense_date === expense_date);
+
+        if (!existingEntry) {
+            existingEntry = { expense_date, net_total : 0};
+            acc.push(existingEntry);
+        }
+
+        existingEntry[voucher] = total_amount;
+        existingEntry.net_total += parseFloat(total_amount); 
+
+        return acc;
+    }, []);
+}

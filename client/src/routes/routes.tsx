@@ -5,6 +5,7 @@ import AddReport from "@/pages/AddReportPage"
 import EditReport from "@/pages/EditReportPage"
 import DailyExpense from "@/pages/DailyExpensePage"
 import MonthlyIncome from "@/pages/MonthlyIncomePage"
+import MonthlyExpense from "@/pages/MonthlyExpensePage"
 
 export const Router = () => {
 
@@ -20,6 +21,7 @@ export const Router = () => {
                         <Route path="/addReport" element={<AddReport />} />
                         <Route path="/editReport/:id" element={<EditReport />} />
                         <Route path="/dailyExpense" element={<DailyExpense />} />
+                        <Route path="/monthlyExpense" element={<MonthlyExpense />} />
                     </>
                 ) : null}
                 {role === "admin" ? (
