@@ -1,4 +1,4 @@
-import { dailyAdvanceTotal, fetchAdvances } from "@/api/advanceApi";
+import { dailyAdvanceTotal, fetchAdvances, monthlyAdvance } from "@/api/advanceApi";
 import { useQuery } from "@tanstack/react-query";
 
 export const fetchDailyAdvance = () => {
@@ -13,4 +13,11 @@ export const getDailyAdvanceTotal = () => {
         queryKey: ['daily-advance-total'],
         queryFn: dailyAdvanceTotal
     })
+}
+
+export const getMonthlyAdvance = () => {
+    return useQuery({
+        queryKey: ['monthly-advance'],
+        queryFn: monthlyAdvance
+    }) 
 }

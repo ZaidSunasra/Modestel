@@ -33,6 +33,12 @@ const navOptions = [
         role: ["admin"]
     },
     {
+        title: "Monthly Advance",
+        url: "/monthlyAdvance",
+        logo: "📅",
+        role: ["admin"]
+    },
+    {
         title: "Collection",
         url: "/collection",
         logo: "💰 ",

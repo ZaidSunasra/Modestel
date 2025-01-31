@@ -24,3 +24,8 @@ export const editAdvance = async({data, id}: {data: any, id: string}) : Promise<
     const response = await axiosInstance.put(`/advance/edit/${id}`, data);
     return response.data;
 }
+
+export const monthlyAdvance = async() : Promise<any> => {
+    const response = await axiosInstance.get("/advance/by-month");
+    return response.data;
+}

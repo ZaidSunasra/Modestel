@@ -83,3 +83,11 @@ export const formatMonthlyIncomeByBookingData = (data: any) => {
         return acc;
     }, []);
 }
+
+export const formatMonthlyExpenseData = (data: any) => {
+    const updatedData = data.response.map((data: any) => ({
+        ...data,
+        date: formatDatetoIST(data.date)
+    }));
+    return updatedData;
+}
