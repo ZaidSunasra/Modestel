@@ -1,11 +1,9 @@
 import { addExpense, deleteExpense, editExpense } from "@/api/expenseApi";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router";
 
 const customMutation =<T> (mutationFn : (data: T) => Promise<any>) => {
     const { toast } = useToast();
-    const navigate = useNavigate();
     const queryClient = useQueryClient();
 
     return useMutation({
@@ -19,7 +17,6 @@ const customMutation =<T> (mutationFn : (data: T) => Promise<any>) => {
             queryClient.invalidateQueries({ queryKey: ['expenses'] });
             queryClient.invalidateQueries({ queryKey: ['daily-expense-total'] });
             queryClient.invalidateQueries({ queryKey: ['daily-expense-category'] });
-            navigate("/dailyExpense");
         },
         onError: (error: any) => {
             toast({
@@ -27,7 +24,6 @@ const customMutation =<T> (mutationFn : (data: T) => Promise<any>) => {
                 title: error.response?.data?.msg || "An error occurred",
                 duration: 3000
             });
-            navigate("/dailyExpense");
         }
     });
 }
