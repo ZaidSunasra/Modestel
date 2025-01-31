@@ -40,7 +40,7 @@ const navOptions = [
     },
     {
         title: "Collection",
-        url: "/collection",
+        url: "/monthlyCollection",
         logo: "💰 ",
         role: ["admin"]
     },

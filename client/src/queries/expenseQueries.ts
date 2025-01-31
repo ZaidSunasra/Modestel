@@ -1,4 +1,4 @@
-import { dailyExpenseTotal, dailyExpenseTotalByCategory, fetchExpenses, monthlyExpenseByCategory } from "@/api/expenseApi";
+import { dailyExpenseTotal, dailyExpenseTotalByCategory, fetchExpenses, monthlyExpenseByCategory, monthlyTotalExpense } from "@/api/expenseApi";
 import { useQuery } from "@tanstack/react-query";
 
 export const fetchDailyExpense = () => {
@@ -26,5 +26,12 @@ export const getMonthlyExpenseByCategory = () => {
     return useQuery({
         queryKey: ['monthly-expense-category'],
         queryFn: monthlyExpenseByCategory
+    })
+}
+
+export const getMonthlyTotalExpense = () => {
+    return useQuery({
+        queryKey: ['monthly-total-expense'],
+        queryFn: monthlyTotalExpense
     })
 }

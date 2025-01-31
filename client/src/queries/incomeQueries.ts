@@ -1,4 +1,4 @@
-import { dailyCashTotal, dailyIncomeByBookingMode, dailyIncomeByPaymentMode, dailyIncomeBySources, monthlyIncomeByBookingMode, monthlyIncomeBySources } from "@/api/incomeApi"
+import { dailyCashTotal, dailyIncomeByBookingMode, dailyIncomeByPaymentMode, dailyIncomeBySources, monthlyIncomeByBookingMode, monthlyIncomeBySources, monthlyTotalCash, monthlyTotalIncome } from "@/api/incomeApi"
 import { useQuery } from "@tanstack/react-query"
 
 export const getDailyCashTotal = () => {
@@ -40,5 +40,19 @@ export const getMonthlyIncomeByBookingMode = () => {
     return useQuery({
         queryKey: ['monthly-income-booking'],
         queryFn: monthlyIncomeByBookingMode
+    })
+}
+
+export const getMonthlyTotalIncome = () => {
+    return useQuery({
+        queryKey: ['monthly-total-income'],
+        queryFn: monthlyTotalIncome
+    })
+}
+
+export const getMonthlyTotalCash = () => {
+    return useQuery({
+        queryKey: ['monthly-total-cash'],
+        queryFn: monthlyTotalCash
     })
 }

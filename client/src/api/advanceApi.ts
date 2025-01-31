@@ -29,3 +29,8 @@ export const monthlyAdvance = async() : Promise<any> => {
     const response = await axiosInstance.get("/advance/by-month");
     return response.data;
 }
+
+export const monthlyTotalAdvance = async() : Promise<any> => {
+    const response = await axiosInstance.get("/advance/monthly-total");
+    return response.data;
+}

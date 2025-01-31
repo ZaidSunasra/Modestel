@@ -51,12 +51,12 @@ export const formatMonthlyExpenseBySourceData = (data: any) => {
         let existingEntry = acc.find((entry: any) => entry.expense_date === expense_date);
 
         if (!existingEntry) {
-            existingEntry = { expense_date, net_total : 0};
+            existingEntry = { expense_date, net_total: 0 };
             acc.push(existingEntry);
         }
 
         existingEntry[voucher] = total_amount;
-        existingEntry.net_total += parseFloat(total_amount); 
+        existingEntry.net_total += parseFloat(total_amount);
 
         return acc;
     }, []);
@@ -73,12 +73,12 @@ export const formatMonthlyIncomeByBookingData = (data: any) => {
         let existingEntry = acc.find((entry: any) => entry.report_date === report_date);
 
         if (!existingEntry) {
-            existingEntry = { report_date, net_total : 0};
+            existingEntry = { report_date, net_total: 0 };
             acc.push(existingEntry);
         }
 
         existingEntry[booking_mode] = total_amount;
-        existingEntry.net_total += parseFloat(total_amount); 
+        existingEntry.net_total += parseFloat(total_amount);
 
         return acc;
     }, []);
@@ -89,5 +89,25 @@ export const formatMonthlyExpenseData = (data: any) => {
         ...data,
         date: formatDatetoIST(data.date)
     }));
+    return updatedData;
+}
+
+export const formatMonthlyCollection = (income: any, cash: any, expense: any, advance: any) => {
+    let updatedData = [];
+    for(let i=0; i<income.response.length; i++){
+        const date = formatDatetoIST(income.response[i].expense_date);
+        const collection = income.response[i].daily_total;
+        const bank = parseFloat(income.response[i].daily_total) - parseFloat(cash.response[i].daily_cash_total);
+        const expenses = expense.response[i].daily_total;
+        const advances = advance.response[i].daily_total;
+        updatedData.push({
+            date: date,
+            collection: collection,
+            bank: bank,
+            advance: advances,
+            expense: expenses,
+            total: parseFloat(collection) - bank - parseFloat(advances) - parseFloat(expenses)
+        });
+    }
     return updatedData;
 }

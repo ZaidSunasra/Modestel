@@ -66,3 +66,26 @@ export const netIncomeByBooking = (data: any) => {
     
     return {walking, ota, company, banquet, wastage, extra, total};
 }
+
+export const cumulativeCollection = (data: any) => {
+    let cumulatedData = [];
+    let net_collection = 0, net_bank = 0, net_expense = 0, net_advance = 0, net_total = 0;
+    for(let i=0; i<data.length; i++){
+        net_collection += parseFloat(data[i].collection);
+        net_bank += data[i].bank;
+        net_expense += parseFloat(data[i].expense);
+        net_advance += parseFloat(data[i].advance);
+        net_total += data[i].total;
+
+        cumulatedData.push({
+            date: data[i].date,
+            collection: net_collection,
+            bank: net_bank,
+            expense: net_expense,
+            advance: net_advance,
+            total: net_total
+        });
+    }
+
+    return cumulatedData;
+}

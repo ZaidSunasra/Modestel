@@ -29,3 +29,13 @@ export const monthlyIncomeByBookingMode = async() : Promise<any> => {
     const response = await axiosInstance.get("/income/monthly-totals/by-booking-mode");
     return response.data;
 }
+
+export const monthlyTotalIncome = async () : Promise<any> => {
+    const response = await axiosInstance.get("/income/monthly-total");
+    return response.data;
+}
+
+export const monthlyTotalCash = async () : Promise<any> => {
+    const response = await axiosInstance.get("/income/monthly-total/cash");
+    return response.data;
+}

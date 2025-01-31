@@ -34,3 +34,8 @@ export const monthlyExpenseByCategory = async () : Promise<any> => {
     const response = await axiosInstance.get("/expense/monthly-totals/by-category");
     return response.data;
 }
+
+export const monthlyTotalExpense = async () : Promise<any> => {
+    const response = await axiosInstance.get("/expense/monthly-total");
+    return response.data;
+}
