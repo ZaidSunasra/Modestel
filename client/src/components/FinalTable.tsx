@@ -1,16 +1,33 @@
+import { getMonthlyIncomeByBookingMode, getMonthlyIncomeBySources } from "@/queries/incomeQueries";
 import { Table, TableBody, TableCell, TableRow } from "./ui/table";
+import { getMonthlyExpenseByCategory } from "@/queries/expenseQueries";
+import { netExpenseBySource, netIncomeByBooking, netIncomeBySources } from "@/utils/calculateTotal";
+import { formatMonthlyExpenseBySourceData, formatMonthlyIncomeByBookingData, formatMonthlyIncomeBySourceData, getLastDateOfMonth } from "@/utils/dataFormatter";
 
 const FinalTable = () => {
 
-    const now = new Date();
-    const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-    const formattedDate = `${lastDay.getDate().toString().padStart(2, "0")}/${(lastDay.getMonth() + 1).toString().padStart(2, "0")}/${lastDay.getFullYear()}`;
+    const { data: incomeData, isPending: incomePending } = getMonthlyIncomeBySources();
+    const { data: bookingData, isPending: bookingPending } = getMonthlyIncomeByBookingMode();
+    const { data: expenseData, isPending: expensePending } = getMonthlyExpenseByCategory();
+
+    const date = getLastDateOfMonth();
+
+    if (incomePending || bookingPending || expensePending) {
+        return <div>Loading...</div>
+    }
+
+    const formattedBookingData = formatMonthlyIncomeByBookingData(bookingData);
+    const formattedIncomeData = formatMonthlyIncomeBySourceData(incomeData);
+    const formattedExpenseData = formatMonthlyExpenseBySourceData(expenseData);
+    const { tariff, cgst, sgst, food, laundry, extra: incomeExtra, total: incomeTotal} = netIncomeBySources(formattedIncomeData);
+    const { walking, ota, company, banquet, wastage, extra: bookingExtra, total: bookingTotal} = netIncomeByBooking(formattedBookingData);
+    const { kitchen, room_service, cash_discount, auto_expense } = netExpenseBySource(formattedExpenseData);
 
     return <div className="print-container">
         <Table className="border-primary border-2 mb-4">
             <TableBody>
                 <TableRow>
-                    <TableCell colSpan={6} className="text-right">{formattedDate}</TableCell>
+                    <TableCell colSpan={6} className="text-right">{date}</TableCell>
                 </TableRow>
                 <TableRow className="font-bold text-xl">
                     <TableCell colSpan={3} className="text-center border-r-2">INCOME</TableCell>
@@ -33,7 +50,7 @@ const FinalTable = () => {
                 <TableRow>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell className="border-r-2">ROOM TARIFF</TableCell>
-                    <TableCell className="border-r-2"></TableCell>
+                    <TableCell className="border-r-2">{tariff}</TableCell>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell className="border-r-2">SERVICES</TableCell>
                     <TableCell></TableCell>
@@ -44,23 +61,23 @@ const FinalTable = () => {
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell className="border-r-2">ROOM SERVICES</TableCell>
-                    <TableCell></TableCell>
+                    <TableCell>{room_service}</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell className="border-r-2">CGST</TableCell>
-                    <TableCell className="border-r-2"></TableCell>
+                    <TableCell className="border-r-2">{cgst}</TableCell>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell className="border-r-2">KITCHEN EXPENSE</TableCell>
-                    <TableCell></TableCell>
+                    <TableCell>{kitchen}</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell className="border-r-2">SGST</TableCell>
-                    <TableCell className="border-r-2"></TableCell>
+                    <TableCell className="border-r-2">{sgst}</TableCell>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell className="border-r-2">AUTO COMMISSION</TableCell>
-                    <TableCell></TableCell>
+                    <TableCell>{auto_expense}</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell className="border-r-2 font-bold">FOOD BILL</TableCell>
@@ -68,12 +85,12 @@ const FinalTable = () => {
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell className="border-r-2 font-bold"></TableCell>
                     <TableCell className="border-r-2">CASH DISCOUNT</TableCell>
-                    <TableCell></TableCell>
+                    <TableCell>{cash_discount}</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell className="border-r-2">ROOM SERVICES</TableCell>
-                    <TableCell className="border-r-2"></TableCell>
+                    <TableCell className="border-r-2">{food}</TableCell>
                     <TableCell className="border-r-2 font-bold">BILL</TableCell>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell></TableCell>
@@ -89,7 +106,7 @@ const FinalTable = () => {
                 <TableRow>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell className="border-r-2">EXTRA</TableCell>
-                    <TableCell className="border-r-2"></TableCell>
+                    <TableCell className="border-r-2">{incomeExtra}</TableCell>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell className="border-r-2">GAS BILL</TableCell>
                     <TableCell></TableCell>
@@ -105,7 +122,7 @@ const FinalTable = () => {
                 <TableRow>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell className="border-r-2">GUEST LAUNDRY</TableCell>
-                    <TableCell className="border-r-2"></TableCell>
+                    <TableCell className="border-r-2">{laundry}</TableCell>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell></TableCell>
@@ -119,7 +136,7 @@ const FinalTable = () => {
                 </TableRow>
                 <TableRow>
                     <TableCell colSpan={2} className="border-r-2 font-bold text-right">TOTAL INCOME</TableCell>
-                    <TableCell className="border-r-2"></TableCell>
+                    <TableCell className="border-r-2">{incomeTotal}</TableCell>
                     <TableCell className="border-r-2 font-bold">LAUNDRY</TableCell>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell></TableCell>
@@ -206,7 +223,7 @@ const FinalTable = () => {
                 </TableRow>
                 <TableRow>
                     <TableCell colSpan={2} className="border-r-2 font-bold text-right">TOTAL INCOME</TableCell>
-                    <TableCell className="border-r-2"></TableCell>
+                    <TableCell className="border-r-2">{incomeTotal}</TableCell>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell></TableCell>
@@ -265,49 +282,49 @@ const FinalTable = () => {
                 </TableRow>
                 <TableRow>
                     <TableCell colSpan={2} className="border-r-2 font-bold">WALKING GUEST</TableCell>
-                    <TableCell className="border-r-2"></TableCell>
+                    <TableCell className="border-r-2">{walking}</TableCell>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell className="border-r-2">SOAP KIT & D.KIT</TableCell>
                     <TableCell></TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell colSpan={2} className="border-r-2 font-bold">OTA ONLINE</TableCell>
-                    <TableCell className="border-r-2"></TableCell>
+                    <TableCell className="border-r-2">{ota}</TableCell>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell className="border-r-2">SOLUTION AMC</TableCell>
                     <TableCell></TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell colSpan={2} className="border-r-2 font-bold">COMPANY'S GUEST</TableCell>
-                    <TableCell className="border-r-2"></TableCell>
+                    <TableCell className="border-r-2">{company}</TableCell>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell className="border-r-2">AR SECURITY AMC</TableCell>
                     <TableCell></TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell colSpan={2} className="border-r-2 font-bold">BANQUET</TableCell>
-                    <TableCell className="border-r-2"></TableCell>
+                    <TableCell className="border-r-2">{banquet}</TableCell>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell className="border-r-2">BATH, HAND TOWEL</TableCell>
                     <TableCell></TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell colSpan={2} className="border-r-2 font-bold">WASTAGE</TableCell>
-                    <TableCell className="border-r-2"></TableCell>
+                    <TableCell className="border-r-2">{wastage}</TableCell>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell className="border-r-2">ROOM LIGHT</TableCell>
                     <TableCell></TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell colSpan={2} className="border-r-2 font-bold">EXTRA</TableCell>
-                    <TableCell className="border-r-2"></TableCell>
+                    <TableCell className="border-r-2">{bookingExtra}</TableCell>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell className="border-r-2">PLUMBER ITEMS</TableCell>
                     <TableCell></TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell colSpan={2} className="border-r-2 font-bold">TOTAL COLLECTION</TableCell>
-                    <TableCell className="border-r-2"></TableCell>
+                    <TableCell className="border-r-2">{bookingTotal}</TableCell>
                     <TableCell className="border-r-2 font-bold">OTHER</TableCell>
                     <TableCell className="border-r-2"></TableCell>
                     <TableCell></TableCell>
