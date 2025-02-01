@@ -1,3 +1,7 @@
+const date = new Date();
+const day = date.getDate();
+
+
 export const totalBankAmount = (data : any) => {
     let bankTotal = 0;
     for(let i=1; i<data.response.length; i++){
@@ -70,7 +74,7 @@ export const netIncomeByBooking = (data: any) => {
 export const cumulativeCollection = (data: any) => {
     let cumulatedData = [];
     let net_collection = 0, net_bank = 0, net_expense = 0, net_advance = 0, net_total = 0;
-    for(let i=0; i<data.length; i++){
+    for(let i=0; i<day; i++){
         net_collection += parseFloat(data[i].collection);
         net_bank += data[i].bank;
         net_expense += parseFloat(data[i].expense);
@@ -86,6 +90,5 @@ export const cumulativeCollection = (data: any) => {
             total: net_total
         });
     }
-
     return cumulatedData;
 }

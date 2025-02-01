@@ -18,7 +18,6 @@ const MonthlyCollection = () => {
 
    const formattedData = formatMonthlyCollection(incomeData, cashData, advanceData, expenseData);
    const cumulativeData = cumulativeCollection(formattedData);
-   console.log(cumulativeData);
 
     return <div className="h-screen w-screen font-mono flex bg-background">
         <SideBar />

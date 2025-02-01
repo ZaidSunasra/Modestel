@@ -2,6 +2,7 @@ import { AddAdvanceInput, AddReportInputs, EditReportInputs } from "@/lib/types"
 import { format } from "date-fns";
 
 const date = format(new Date(), "yyyy-MM-dd");
+const day = new Date().getDate();
 
 export const formatAddReportData = (data: AddReportInputs) => {
     data.c_gst = parseFloat(data.tariff) * 0.05;
@@ -33,19 +34,33 @@ export const formatDatetoIST = (date: string) => {
 }
 
 export const formatMonthlyIncomeBySourceData = (data: any) => {
-    const updateData = data.response.map((item: any) => ({
-        ...item,
-        report_date: formatDatetoIST(item.report_date)
-    }));
-    return updateData;
+    const updatedData = [];
+    for (let i = 0; i < day; i++) {
+        updatedData.push({
+            total_tariff: data.response[i].total_tariff,
+            total_cgst: data.response[i].total_cgst,
+            total_sgst: data.response[i].total_sgst,
+            total_food: data.response[i].total_food,
+            total_laundry: data.response[i].total_laundry,
+            total_extra: data.response[i].total_extra,
+            grand_total: data.response[i].grand_total,
+            report_date: formatDatetoIST(data.response[i].report_date)
+        })
+    }
+    return updatedData;
 }
 
 export const formatMonthlyExpenseBySourceData = (data: any) => {
-    const updatedData = data.response.map((item: any) => ({
+    const updatedData = data.response
+    .map((item: any) => ({
         ...item,
-        expense_date: formatDatetoIST(item.expense_date)
+        expense_date: formatDatetoIST(item.expense_date), 
     }))
-    return updatedData.reduce((acc: any, item: any) => {
+    .filter((item: any) => {
+        const itemDate = new Date(item.expense_date); 
+        return itemDate  <= new Date(); 
+    })
+    .reduce((acc: any, item: any) => {
         const { expense_date, voucher, total_amount } = item;
 
         let existingEntry = acc.find((entry: any) => entry.expense_date === expense_date);
@@ -60,14 +75,20 @@ export const formatMonthlyExpenseBySourceData = (data: any) => {
 
         return acc;
     }, []);
+    return updatedData;
 }
 
 export const formatMonthlyIncomeByBookingData = (data: any) => {
-    const updatedData = data.response.map((item: any) => ({
+    const updatedData = data.response.
+    map((item: any) => ({
         ...item,
         report_date: formatDatetoIST(item.report_date)
     }))
-    return updatedData.reduce((acc: any, item: any) => {
+    .filter((item: any) => {
+        const itemDate = new Date(item.report_date);
+        return itemDate <= new Date();
+    })
+    .reduce((acc: any, item: any) => {
         const { report_date, booking_mode, total_amount } = item;
 
         let existingEntry = acc.find((entry: any) => entry.report_date === report_date);
@@ -82,6 +103,7 @@ export const formatMonthlyIncomeByBookingData = (data: any) => {
 
         return acc;
     }, []);
+    return updatedData;
 }
 
 export const formatMonthlyExpenseData = (data: any) => {
@@ -92,9 +114,9 @@ export const formatMonthlyExpenseData = (data: any) => {
     return updatedData;
 }
 
-export const formatMonthlyCollection = (income: any, cash: any, expense: any, advance: any) => {
+export const formatMonthlyCollection = (income: any, cash: any, advance: any, expense: any) => {
     let updatedData = [];
-    for(let i=0; i<income.response.length; i++){
+    for (let i = 0; i < income.response.length; i++) {
         const date = formatDatetoIST(income.response[i].expense_date);
         const collection = income.response[i].daily_total;
         const bank = parseFloat(income.response[i].daily_total) - parseFloat(cash.response[i].daily_cash_total);
@@ -110,4 +132,11 @@ export const formatMonthlyCollection = (income: any, cash: any, expense: any, ad
         });
     }
     return updatedData;
+}
+
+export const getLastDateOfMonth = () => {
+    const now = new Date();
+    const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    const formattedDate = `${lastDay.getDate().toString().padStart(2, "0")}/${(lastDay.getMonth() + 1).toString().padStart(2, "0")}/${lastDay.getFullYear()}`;
+    return formattedDate;
 }
