@@ -80,3 +80,21 @@
     @apply bg-background text-foreground;
   }
 }
+
+@media print {
+  .print-container {
+    font-size: 12px !important; 
+    padding: 4px;
+    padding-top: 15px;
+  }
+  .print-container table {
+    margin: auto;
+  }
+  .print-container tr {
+    height: 20px !important; 
+  }
+  .print-container td {
+    padding: 1px !important; 
+  }
+
+}

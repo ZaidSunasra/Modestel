@@ -9,6 +9,7 @@ import MonthlyExpense from "@/pages/MonthlyExpensePage"
 import MonthlyRoom from "@/pages/MonthlyRoomPage"
 import MonthlyAdvance from "@/pages/MonthlyAdvancePage"
 import MonthlyCollection from "@/pages/MonthlyCollectionPage"
+import Final from "@/pages/FinalPage"
 
 export const Router = () => {
 
@@ -33,6 +34,7 @@ export const Router = () => {
                         <Route path="/monthlyRoom" element={<MonthlyRoom />} />
                         <Route path="/monthlyAdvance" element={<MonthlyAdvance />} />
                         <Route path="/monthlyCollection" element={<MonthlyCollection />} />
+                        <Route path="/final" element={<Final/>} />
                     </>
                 ) : null}
             </Routes>
