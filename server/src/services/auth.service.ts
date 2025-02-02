@@ -18,3 +18,12 @@ export const addNewUser = async ({
     [username, hashedPassword, role],
   );
 };
+
+export const deleteAccountService = async (id: string) : Promise<void> => {
+  await db.query("DELETE FROM users WHERE id=$1", [id]);
+}
+
+export const getAllUserService = async(): Promise<any> => {
+  const query = await db.query("SELECT id, username, role FROM users WHERE id != 1");
+  return query.rows;
+}
