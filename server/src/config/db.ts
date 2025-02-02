@@ -55,8 +55,16 @@ export const db = new Pool({
 //     role user_options
 // );
 
+// CREATE TABLE settlements(
+// 	id SERIAL PRIMARY KEY, 
+// 	hotel NUMERIC(8,2) NOT NULL,
+// 	bank NUMERIC(8,2) NOT NULL,
+// 	date DATE NOT NULL
+// );
+
 // CREATE INDEX idx_reports_date ON reports(report_date);
 // CREATE INDEX idx_reports_date_payment_booking ON reports(report_date, payment_mode, booking_mode);
 // CREATE INDEX idx_reports_date_sources ON reports(report_date, tariff, food, laundry, extra);
 // CREATE INDEX idx_expenses_date_voucher ON expenses(expense_date, voucher);
 // CREATE INDEX idx_staff_advance_date ON staff_advance_details(date);
+//CREATE INDEX idx_settlements_date ON settlements(date);
