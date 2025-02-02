@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { loginSchema, signupSchema } from "../validations/auth.validations";
-import { addNewUser, findExistingUser } from "../services/auth.service";
+import { addNewUser, deleteAccountService, findExistingUser, getAllUserService } from "../services/auth.service";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-export const signupController = async (
+export const addUserController = async (
   req: Request,
   res: Response,
 ): Promise<any> => {
@@ -28,18 +28,6 @@ export const signupController = async (
 
     const hashedPassword = await bcrypt.hash(password, 10);
     await addNewUser({ username, hashedPassword, role });
-
-    const token = jwt.sign(
-      { username, role },
-      process.env.JWT_SECRET as string,
-      {
-        expiresIn: "1d",
-      },
-    );
-    res.cookie("Token", token, {
-      httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000,
-    });
 
     return res.status(201).json({
       msg: "User registered successfully",
@@ -124,6 +112,35 @@ export const logoutController = async (
     });
   } catch (error) {
     console.log("Logout error: ", error);
+    return res.status(500).send({
+      msg: "Internal server error",
+    });
+  }
+};
+
+export const deleteAccountController = async (req: Request, res: Response): Promise<any> => {
+  const id = req.params.id;
+  try {
+    await deleteAccountService(id);
+    return res.status(200).send({
+      msg: "Account successfully deleted",
+    });
+  } catch (error) {
+    console.log("Account deletion error: ", error);
+    return res.status(500).send({
+      msg: "Internal server error",
+    });
+  }
+};
+
+export const getAllUserController = async(req: Request, res: Response): Promise<any> => {
+  try {
+    const response = await getAllUserService();
+    return res.status(200).send({
+     response
+    });
+  } catch (error) {
+    console.log("Error getting user", error);
     return res.status(500).send({
       msg: "Internal server error",
     });
