@@ -117,19 +117,19 @@ export const monthlyTotalService = async (): Promise<any> => {
                     DATE_TRUNC('month',  CURRENT_DATE),         
                     DATE_TRUNC('month', CURRENT_DATE) + INTERVAL '1 month' - INTERVAL '1 day', 
                     INTERVAL '1 day'
-                ) AS expense_date
+                ) AS date
             )
         SELECT 
-            ds.expense_date,
+            ds.date,
             COALESCE(SUM(r.total), 0) AS daily_total
         FROM 
             date_series ds
         LEFT JOIN 
             reports r
         ON 
-            ds.expense_date = r.report_date
-        GROUP BY ds.expense_date
-        ORDER BY ds.expense_date`);
+            ds.date = r.report_date
+        GROUP BY ds.date
+        ORDER BY ds.date`);
   return query.rows;
 };
 
@@ -141,19 +141,19 @@ export const monthlyTotalCashService = async (): Promise<any> => {
                     DATE_TRUNC('month', CURRENT_DATE),          
                     DATE_TRUNC('month', CURRENT_DATE) + INTERVAL '1 month' - INTERVAL '1 day',
                     INTERVAL '1 day'
-                ) AS expense_date
+                ) AS date
             )           
         SELECT 
-            ds.expense_date,
+            ds.date,
             COALESCE(SUM(r.total), 0) AS daily_cash_total
         FROM 
             date_series ds
         LEFT JOIN 
             reports r
         ON 
-            ds.expense_date = r.report_date
+            ds.date = r.report_date
             AND r.payment_mode = 'cash' 
-        GROUP BY ds.expense_date
-        ORDER BY ds.expense_date`);
+        GROUP BY ds.date
+        ORDER BY ds.date`);
   return query.rows;
 };
