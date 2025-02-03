@@ -57,8 +57,8 @@ export const formatMonthlyExpenseBySourceData = (data: any) => {
         expense_date: formatDatetoIST(item.expense_date), 
     }))
     .filter((item: any) => {
-        const itemDate = new Date(item.expense_date); 
-        return itemDate  <= new Date(); 
+        const itemDate = item.expense_date; 
+        return itemDate  <= format(new Date(), "dd/MM/yyyy"); 
     })
     .reduce((acc: any, item: any) => {
         const { expense_date, voucher, total_amount } = item;
@@ -85,8 +85,8 @@ export const formatMonthlyIncomeByBookingData = (data: any) => {
         report_date: formatDatetoIST(item.report_date)
     }))
     .filter((item: any) => {
-        const itemDate = new Date(item.report_date);
-        return itemDate <= new Date();
+        const itemDate = item.report_date;
+        return itemDate <=  format(new Date(), "dd/MM/yyyy");
     })
     .reduce((acc: any, item: any) => {
         const { report_date, booking_mode, total_amount } = item;
