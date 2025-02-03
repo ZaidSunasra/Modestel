@@ -48,9 +48,9 @@ export const editSettlementController = async (req: Request, res: Response) : Pr
 }
 
 export const deleteSettlementController = async(req: Request, res: Response) : Promise<any> => {
-    const id = req.params.id;
+    const date = req.params.date;
     try {
-        await deleteSettlementService(id);
+        await deleteSettlementService(date);
         return res.status(201).json({
             msg: "Settlement deleted successfully",
         });

@@ -7,7 +7,7 @@ export const settlementRouter = express.Router();
 
 settlementRouter.post("/add", authMiddleware, checkRole(['admin', 'user']), addSettlementController);
 settlementRouter.put("/edit/:id", authMiddleware, checkRole(['admin', 'user']), editSettlementController);
-settlementRouter.delete("/delete/:id", authMiddleware, checkRole(['admin', 'user']), deleteSettlementController);
+settlementRouter.delete("/delete/:date", authMiddleware, checkRole(['admin', 'user']), deleteSettlementController);
 settlementRouter.get("/monthly-total/day-wise", authMiddleware, checkRole(['admin', 'user']), getMonthlySettlementDayWiseController);
 
 

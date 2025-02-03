@@ -9,8 +9,8 @@ export const editSettlementService = async ({ hotel, bank }: editSettlementType,
     await db.query("UPDATE settlements SET hotel=$1, bank=$2 WHERE id=$3", [hotel, bank, id]);
 }
 
-export const deleteSettlementService = async (id: string): Promise<void> => {
-    await db.query("DELETE FROM settlements WHERE id=$1", [id]);
+export const deleteSettlementService = async (date: string): Promise<void> => {
+    await db.query("DELETE FROM settlements WHERE date=$1", [date]);
 }
 
 export const getMonthlySettlementDayWiseService = async (): Promise<any> => {
