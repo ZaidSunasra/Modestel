@@ -1,4 +1,4 @@
-import { AddAdvanceInput, AddReportInputs, EditReportInputs } from "@/lib/types";
+import { AddReportInputs, EditReportInputs } from "@/lib/types";
 import { format } from "date-fns";
 
 const date = format(new Date(), "yyyy-MM-dd");
@@ -19,7 +19,7 @@ export const formatEditReportData = (data: EditReportInputs) => {
     return data;
 }
 
-export const formatAddAdvanceData = (data: AddAdvanceInput) => {
+export const formatAddAdvanceData = (data: any) => {
     data.date = date;
     return data;
 }
