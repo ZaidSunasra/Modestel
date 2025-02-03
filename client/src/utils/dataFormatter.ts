@@ -114,21 +114,25 @@ export const formatMonthlyExpenseData = (data: any) => {
     return updatedData;
 }
 
-export const formatMonthlyCollection = (income: any, cash: any, advance: any, expense: any) => {
+export const formatMonthlyCollection = (income: any, cash: any, advance: any, expense: any, settlement: any) => {
     let updatedData = [];
     for (let i = 0; i < income.response.length; i++) {
-        const date = formatDatetoIST(income.response[i].expense_date);
+        const date = formatDatetoIST(income.response[i].date);
         const collection = income.response[i].daily_total;
         const bank = parseFloat(income.response[i].daily_total) - parseFloat(cash.response[i].daily_cash_total);
         const expenses = expense.response[i].daily_total;
         const advances = advance.response[i].daily_total;
+        const bank_settlement = settlement.response[i].total_bank;
+        const hotel_settlement = settlement.response[i].total_hotel;
         updatedData.push({
             date: date,
             collection: collection,
             bank: bank,
             advance: advances,
             expense: expenses,
-            total: parseFloat(collection) - bank - parseFloat(advances) - parseFloat(expenses)
+            total: parseFloat(collection) - bank - parseFloat(advances) - parseFloat(expenses),
+            bank_settlement: bank_settlement,
+            hotel_settlement: hotel_settlement
         });
     }
     return updatedData;

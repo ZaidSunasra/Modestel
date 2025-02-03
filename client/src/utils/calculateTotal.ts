@@ -87,7 +87,9 @@ export const cumulativeCollection = (data: any) => {
             bank: net_bank,
             expense: net_expense,
             advance: net_advance,
-            total: net_total
+            total: net_total,
+            bank_settlement: data[i].bank_settlement,
+            hotel_settlement: data[i].hotel_settlement
         });
     }
     return cumulatedData;

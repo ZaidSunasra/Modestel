@@ -55,3 +55,9 @@ export type EditExpenseInput = {
     amount: string,
     name: string
 }
+
+export type AddSettlementInput = {
+    hotel: string,
+    bank: string,
+    date: string,
+}
