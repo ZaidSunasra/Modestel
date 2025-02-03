@@ -1,3 +1,4 @@
+import { AddAdvanceInput, EditAdvanceInput } from "@/lib/types";
 import axiosInstance from "./axiosInstance";
 
 export  const fetchAdvances = async () : Promise<any> => {
@@ -10,7 +11,8 @@ export const dailyAdvanceTotal = async () : Promise<any> => {
     return response.data;
 }
 
-export const addAdvance = async (data: any) : Promise<any> => {
+export const addAdvance = async (data: AddAdvanceInput) : Promise<any> => {
+    data.name = data.name.toLowerCase();
     const response =await axiosInstance.post("/advance/add", data);
     return response.data;
 }
@@ -20,7 +22,8 @@ export const deleteAdvance = async(id: string) : Promise<any> => {
     return response.data;
 }
 
-export const editAdvance = async({data, id}: {data: any, id: string}) : Promise<any> => {
+export const editAdvance = async({data, id}: {data: EditAdvanceInput, id: string}) : Promise<any> => {
+    data.name = data.name.toLowerCase();
     const response = await axiosInstance.put(`/advance/edit/${id}`, data);
     return response.data;
 }

@@ -57,7 +57,7 @@ const MonthlyAdvance = () => {
                         {formattedData.map((data: any) => (
                             <TableRow key={data.id} className="text-primary">
                                 <TableCell>{data.date}</TableCell>
-                                <TableCell>{data.staff_name}</TableCell>
+                                <TableCell className="uppercase">{data.staff_name}</TableCell>
                                 <TableCell>{data.amount}</TableCell>
                                 <TableCell className="flex gap-5">
                                     <Button
