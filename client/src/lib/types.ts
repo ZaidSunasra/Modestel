@@ -61,3 +61,9 @@ export type AddSettlementInput = {
     bank: string,
     date: string,
 }
+
+export type AddUserInput = {
+    username: string,
+    role: "user" | "admin" | "receptionist",
+    password: string
+}
