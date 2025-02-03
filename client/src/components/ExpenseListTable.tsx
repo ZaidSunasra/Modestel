@@ -26,7 +26,6 @@ const ExpenseList = () => {
     const handleAddExpense = (data: AddExpenseInput) => {
         const formattedData = formatAddAdvanceData(data);
         postMutation.mutate(formattedData);
-        console.log(formattedData);
         setIsOpen(false);
         setActionType(null);
     }

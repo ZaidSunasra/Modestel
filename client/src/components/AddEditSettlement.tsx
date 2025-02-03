@@ -14,7 +14,6 @@ export const AddSettlement = ({ onSubmit }: { onSubmit: (data: AddSettlementInpu
 
     const { handleSubmit, formState: { errors }, register, control } = useForm<AddSettlementInput>();
     const submitHandler: SubmitHandler<AddSettlementInput> = (data: AddSettlementInput) => {
-        console.log("Selected Date:", data.date);
         onSubmit(data);
     }
 
