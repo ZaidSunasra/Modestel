@@ -1,9 +1,11 @@
-import { NavLink } from "react-router";
+import { NavLink, useLocation } from "react-router";
 import { SidebarMenuItem, Sidebar, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarContent, SidebarGroup, SidebarFooter } from "./ui/sidebar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Avatar } from "./ui/avatar";
-import { ChevronsUpDown, LogOut } from "lucide-react";
+import { ChevronsUpDown, LogOut, Moon, Sun } from "lucide-react";
 import { useLogout } from "@/mutations/authMutation";
+import { Button } from "./ui/button";
+import { useTheme } from "@/context/theme";
 
 const navOptions = [
     {
@@ -64,12 +66,12 @@ const navOptions = [
 
 const SideBar = () => {
 
+    const { theme, toggleTheme } = useTheme();
     const role = localStorage.getItem("Role") || "";
     const username = localStorage.getItem("Username") || "";
+    const url = useLocation();
     const filteredOption = navOptions.filter((option) => option.role.includes(role));
-    const logout = useLogout()
-
-
+    const logout = useLogout();
 
     return <>
         <Sidebar collapsible="icon" className="font-mono">
@@ -97,10 +99,12 @@ const SideBar = () => {
                                 <SidebarMenuButton
                                     asChild
                                     size={'lg'}
-                                    // variant={'outline'}
                                     className="text-lg font-semibold"
                                 >
-                                    <NavLink to={option.url}>
+                                    <NavLink
+                                        to={option.url}
+                                        className={`${url.pathname === option.url ? "bg-accent-foreground text-primary-foreground" : ""}`}
+                                    >
                                         <span>{option.logo}</span>
                                         <span> {option.title} </span>
                                     </NavLink>
@@ -117,7 +121,7 @@ const SideBar = () => {
                             <DropdownMenuTrigger asChild>
                                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                                     <Avatar className="h-8 w-8 rounded-lg flex items-center justify-center border-2 border-sidebar-border">
-                                    {username[0].toUpperCase()}
+                                        {username[0].toUpperCase()}
                                     </Avatar>
                                     <div className="grid flex-1 text-left text-sm leading-tight">
                                         <span className="truncate font-semibold">
@@ -149,6 +153,21 @@ const SideBar = () => {
                                 </DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuGroup>
+                                    <DropdownMenuItem>
+                                        <Button onClick={toggleTheme} className="flex items-center gap-2 w-full">
+                                            {theme === 'light' ? (
+                                                <>
+                                                    <Moon size={20} />
+                                                    <span>Dark Mode</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <Sun size={20} />
+                                                    <span>Light Mode</span>
+                                                </>
+                                            )}
+                                        </Button>
+                                    </DropdownMenuItem>
                                     <DropdownMenuItem
                                         onClick={() => {
                                             logout.mutate();

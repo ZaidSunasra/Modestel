@@ -67,3 +67,8 @@ export type AddUserInput = {
     role: "user" | "admin" | "receptionist",
     password: string
 }
+
+export type ThemeContextType = {
+    theme: 'light' | 'dark';
+    toggleTheme: () => void;
+  };

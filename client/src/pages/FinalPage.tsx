@@ -14,7 +14,7 @@ const Final = () => {
         contentRef
     });
 
-    return <div className="h-screen w-screen font-mono flex bg-background">
+    return <div className="w-screen font-mono flex bg-background">
         <SideBar />
         <SidebarTrigger />
         <div className="w-full p-4">
@@ -24,7 +24,7 @@ const Final = () => {
                     Print Report
                 </Button>
             </div>
-            <div ref={contentRef}>
+            <div ref={contentRef} className="text-primary">
                 <FinalTable />
             </div>
         </div>

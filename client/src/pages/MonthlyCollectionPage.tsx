@@ -84,7 +84,7 @@ const MonthlyCollection = () => {
                     </TableHeader>
                     <TableBody>
                         {cumulativeData.map((data: any) => (
-                            <TableRow key={data.date}>
+                            <TableRow key={data.date} className="text-primary">
                                 <TableCell>{data.date}</TableCell>
                                 <TableCell>{data.collection}</TableCell>
                                 <TableCell>{data.bank}</TableCell>

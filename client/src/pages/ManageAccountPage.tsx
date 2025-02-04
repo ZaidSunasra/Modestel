@@ -37,8 +37,6 @@ const ManageAccount = () => {
 
     if (isPending) return <Loading sideBar={true} button={true} width={"100%"} height={"88vh"} />
 
-    console.log(data);
-
     return <div className="h-screen w-screen font-mono flex bg-background">
         <SideBar />
         <SidebarTrigger />
@@ -65,7 +63,7 @@ const ManageAccount = () => {
                     </TableHeader>
                     <TableBody>
                         {data.response.map((data: any) => (
-                            <TableRow key={data.id}>
+                            <TableRow key={data.id} className="text-primary">
                                 <TableCell>{data.username}</TableCell>
                                 <TableCell className="uppercase">{data.role}</TableCell>
                                 <TableCell className="flex gap-5">
