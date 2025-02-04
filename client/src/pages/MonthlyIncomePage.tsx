@@ -1,3 +1,4 @@
+import Loading from "@/components/Loading";
 import SideBar from "@/components/SideBar";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -10,7 +11,7 @@ const MonthlyIncome = () => {
 
     const { data, isPending } = getMonthlyIncomeBySources();
 
-    if (isPending) return <div>Loading</div>
+    if (isPending) return <Loading sideBar={true} button={false} width={"100%"} height={"95vh"}/>
 
     const formattedData = formatMonthlyIncomeBySourceData(data);
     const { tariff, cgst, sgst, food, laundry, extra, total } = netIncomeBySources(formattedData);

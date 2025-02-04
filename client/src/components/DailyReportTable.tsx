@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { useState } from "react";
 import { useDeleteReport } from "@/mutations/reportMutation";
 import { useNavigate } from "react-router";
+import Loading from "./Loading";
 
 const ReportTable = () => {
 
@@ -24,7 +25,7 @@ const ReportTable = () => {
     }
 
     if (incomePending || reportPending) {
-        return <h1> Loading </h1>
+        return <Loading height="90vh" width="100%" sideBar={false} button={false}/>
     }
 
     if (reportIsError || incomeIsError) {

@@ -1,4 +1,5 @@
 import { EditAdvance } from "@/components/AddEditAdvance";
+import Loading from "@/components/Loading";
 import SideBar from "@/components/SideBar";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -35,7 +36,7 @@ const MonthlyAdvance = () => {
         setAdvanceData(null);
     }
 
-    if (isPending) return <div>Loading...</div>
+    if (isPending) return <Loading sideBar={true} button={false} width={"100%"} height={"95vh"}/>
 
     const formattedData = formatMonthlyExpenseData(data);
 

@@ -1,13 +1,14 @@
 import { getDailyIncomeByPaymentMode } from "@/queries/incomeQueries";
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "./ui/table";
 import { netAmount, totalBankAmount } from "@/utils/calculateTotal";
+import Loading from "./Loading";
 
 const BankDetail = () => {
 
     const { data, isPending, isError } = getDailyIncomeByPaymentMode();
 
     if (isPending) {
-        return <div>Loading...</div>
+        return <Loading button={false} sideBar={false} height={"300px"} width={"300px"} />
     }
 
     if (isError) {

@@ -1,4 +1,5 @@
 import { AddSettlement } from "@/components/AddEditSettlement";
+import Loading from "@/components/Loading";
 import SideBar from "@/components/SideBar";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -30,7 +31,9 @@ const MonthlyCollection = () => {
     const postMutation = useAddSettlement();
     const deleteMutation = useDeleteSettlement();
 
-    if (incomePending || cashPending || advancePending || expensePending || settlementPending) return <div>Loading...</div>
+    if (incomePending || cashPending || advancePending || expensePending || settlementPending) {
+        return <Loading sideBar={true} button={true} width={"100%"} height={"88vh"} />
+    }
 
     const formattedData = formatMonthlyCollection(incomeData, cashData, advanceData, expenseData, settlementData);
     const cumulativeData = cumulativeCollection(formattedData);
@@ -53,7 +56,7 @@ const MonthlyCollection = () => {
         <SideBar />
         <SidebarTrigger />
         <div className="w-full p-4">
-            <div className="max-h-[95vh] overflow-auto">
+            <div className="max-h-[88vh] overflow-auto">
                 <div className="flex justify-end mb-4">
                     <Button
                         onClick={() => {

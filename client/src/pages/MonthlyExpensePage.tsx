@@ -1,3 +1,4 @@
+import Loading from "@/components/Loading";
 import SideBar from "@/components/SideBar";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -9,7 +10,7 @@ const MonthlyExpense = () => {
 
     const { data, isPending } = getMonthlyExpenseByCategory();
 
-    if (isPending) return <div>Loading...</div>
+    if (isPending) return <Loading sideBar={true} button={false} width={"100%"} height={"95vh"}/>
 
     const formattedData = formatMonthlyExpenseBySourceData(data);
     const {hotel, kitchen, room_service, cash_discount, auto_expense, total} = netExpenseBySource(formattedData);

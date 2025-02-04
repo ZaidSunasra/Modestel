@@ -1,4 +1,5 @@
 import AddUser from "@/components/AddUserPage";
+import Loading from "@/components/Loading";
 import SideBar from "@/components/SideBar";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -34,7 +35,7 @@ const ManageAccount = () => {
         setIsOpen(false);
     }
 
-    if (isPending) return <div>Loadingg..</div>
+    if (isPending) return <Loading sideBar={true} button={true} width={"100%"} height={"88vh"} />
 
     console.log(data);
 

@@ -3,6 +3,7 @@ import { Table, TableBody, TableCell, TableRow } from "./ui/table";
 import { getMonthlyExpenseByCategory } from "@/queries/expenseQueries";
 import { netExpenseBySource, netIncomeByBooking, netIncomeBySources } from "@/utils/calculateTotal";
 import { formatMonthlyExpenseBySourceData, formatMonthlyIncomeByBookingData, formatMonthlyIncomeBySourceData, getLastDateOfMonth } from "@/utils/dataFormatter";
+import Loading from "./Loading";
 
 const FinalTable = () => {
 
@@ -13,7 +14,7 @@ const FinalTable = () => {
     const date = getLastDateOfMonth();
 
     if (incomePending || bookingPending || expensePending) {
-        return <div>Loading...</div>
+        return <Loading sideBar={false} button={false} width={"100%"} height={"88vh"} />
     }
 
     const formattedBookingData = formatMonthlyIncomeByBookingData(bookingData);

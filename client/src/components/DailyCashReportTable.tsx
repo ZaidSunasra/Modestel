@@ -5,6 +5,7 @@ import { getDailyExpenseTotal } from "@/queries/expenseQueries";
 import { Input } from "./ui/input";
 import { useState } from "react";
 import { cashAmount } from "@/utils/calculateTotal";
+import Loading from "./Loading";
 
 const CashReport = () => {
 
@@ -14,7 +15,7 @@ const CashReport = () => {
     const { data: expenseData, isPending: expensePending, isError: expenseIsError } = getDailyExpenseTotal();
 
     if (cashPending || advancePending || expensePending) {
-        return <div>Loading...</div>
+        return <Loading button={false} sideBar={false} height={"300px"} width={"300px"} />
     }
 
     if (cashIsError || advanceIsError || expenseIsError) {

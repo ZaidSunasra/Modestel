@@ -1,13 +1,14 @@
 import { getDailyExpenseByCategory } from "@/queries/expenseQueries";
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "./ui/table";
 import { netAmount } from "@/utils/calculateTotal";
+import Loading from "./Loading";
 
 const ExpenseDetail = () => {
 
     const { data, isPending, isError } = getDailyExpenseByCategory();
 
     if (isPending) {
-        return <div>Loading...</div>
+        return <Loading button={false} sideBar={false} height={"300px"} width={"300px"} />
     }
 
     if (isError) {

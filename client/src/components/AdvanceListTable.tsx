@@ -8,6 +8,7 @@ import { useAddAdvance, useDeleteAdvance, useEditAdvance } from "@/mutations/adv
 import { AddAdvance, EditAdvance } from "./AddEditAdvance";
 import { AddAdvanceInput, EditAdvanceInput } from "@/lib/types";
 import { formatAddAdvanceData } from "@/utils/dataFormatter";
+import Loading from "./Loading";
 
 const AdvanceList = () => {
 
@@ -43,10 +44,10 @@ const AdvanceList = () => {
         setData(null);
     }
 
-    if (fetchPending || totalPending) return <>Loading..</>
+    if (fetchPending || totalPending) return <Loading sideBar={false} button={true} height={"50vh"} width={"100%"} />
 
     return <>
-        <div className="mb-2 flex justify-end">
+        <div className="mb-4 flex justify-end">
             <Button
                 onClick={() => {
                     setActionType('post');
@@ -56,7 +57,7 @@ const AdvanceList = () => {
                 Add Advance
             </Button>
         </div>
-        <div className="overflow-y-auto max-h-[52vh]">
+        <div className="overflow-y-auto max-h-[50vh]">
             <Table className="border-border border-2">
                 <TableHeader>
                     <TableRow>

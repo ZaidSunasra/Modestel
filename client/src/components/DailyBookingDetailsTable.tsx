@@ -1,13 +1,14 @@
 import { getDailyIncomeByBookingMode } from "@/queries/incomeQueries";
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "./ui/table";
 import { netAmount } from "@/utils/calculateTotal";
+import Loading from "./Loading";
 
 const BookingDetail = () => {
 
     const { data, isPending, isError } = getDailyIncomeByBookingMode();
 
     if (isPending) {
-        return <div>Loading ....</div>
+        return <Loading button={false} sideBar={false} height={"300px"} width={"300px"} />
     }
 
     if (isError) {

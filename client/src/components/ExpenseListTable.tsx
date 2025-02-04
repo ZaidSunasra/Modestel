@@ -9,6 +9,7 @@ import { useAddExpense, useDeleteExpense, useEditExpense } from "@/mutations/exp
 import { AddExpenseInput, EditExpenseInput } from "@/lib/types";
 import { formatAddAdvanceData } from "@/utils/dataFormatter";
 import { AddExpense, EditExpense } from "./AddEditExpense";
+import Loading from "./Loading";
 
 const ExpenseList = () => {
 
@@ -44,10 +45,10 @@ const ExpenseList = () => {
         setData(null);
     }
 
-    if (fetchPending || totalPending) return <>Loading..</>
+    if (fetchPending || totalPending) return <Loading sideBar={false} button={true} height={"50vh"} width={"100%"} />
 
     return <>
-        <div className="mb-2 flex justify-end">
+        <div className="mb-4 flex justify-end">
             <Button
                 onClick={() => {
                     setIsOpen(true);
@@ -57,7 +58,7 @@ const ExpenseList = () => {
                 Add Expense
             </Button>
         </div>
-        <div className="overflow-y-auto max-h-[52vh]">
+        <div className="overflow-y-auto max-h-[50vh]">
             <Table className="border-border border-2">
                 <TableHeader>
                     <TableRow>

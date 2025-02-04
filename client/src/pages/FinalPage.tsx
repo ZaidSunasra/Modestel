@@ -27,7 +27,6 @@ const Final = () => {
             <div ref={contentRef}>
                 <FinalTable />
             </div>
-
         </div>
     </div>
 }
