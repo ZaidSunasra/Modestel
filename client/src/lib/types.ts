@@ -5,7 +5,7 @@ export type LoginInputs = {
 
 export type AddReportInputs = {
     room_no: string,
-    bill_no: string, 
+    bill_no: string,
     tariff: string,
     c_gst: number,
     s_gst: number,
@@ -13,14 +13,14 @@ export type AddReportInputs = {
     laundry: string,
     extra: string,
     total: number,
-    payment_mode: string,
-    booking_mode: string,
+    payment_mode: "cash" | "card swipe" | "bank transfer" | "wallet" | "ota pay"
+    booking_mode: "walking" | "ota" | "company" | "banquet" | "wastage" | "extra"
     date: string
 }
 
 export type EditReportInputs = {
     room_no: string,
-    bill_no: string, 
+    bill_no: string,
     tariff: string,
     c_gst: number,
     s_gst: number,
@@ -28,8 +28,8 @@ export type EditReportInputs = {
     laundry: string,
     extra: string,
     total: number,
-    payment_mode: string,
-    booking_mode: string,
+    payment_mode: "cash" | "card swipe" | "bank transfer" | "wallet" | "ota pay"
+    booking_mode: "walking" | "ota" | "company" | "banquet" | "wastage" | "extra"
 }
 
 export type AddAdvanceInput = {
@@ -44,14 +44,14 @@ export type EditAdvanceInput = {
 }
 
 export type AddExpenseInput = {
-    voucher: string,
+    voucher: "hotel" | "room service" | "kitchen" | "auto expense" | "cash discount"
     amount: string,
     date: string,
     name: string
 }
 
 export type EditExpenseInput = {
-    voucher: string,
+    voucher: "hotel" | "room service" | "kitchen" | "auto expense" | "cash discount"
     amount: string,
     name: string
 }
@@ -71,4 +71,4 @@ export type AddUserInput = {
 export type ThemeContextType = {
     theme: 'light' | 'dark';
     toggleTheme: () => void;
-  };
+};
