@@ -12,6 +12,7 @@ export const deleteReport = async(id: string): Promise<any> => {
 }
 
 export const addReport = async (data: AddReportInputs) : Promise<any>  => {
+    data.bill_no = data.bill_no.toLowerCase();
     const response = await axiosInstance.post("/report/add", data);
     return response.data;
 }
