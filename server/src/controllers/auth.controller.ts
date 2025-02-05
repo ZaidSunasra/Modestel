@@ -81,17 +81,13 @@ export const loginController = async (
         expiresIn: "1d",
       },
     );
-    res.cookie("Token", token, {
-      httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000,
-    });
-
     return res.status(200).send({
       msg: "Logged in successfully",
       userData: {
         username,
         role,
-      },
+        token
+      }
     });
   } catch (error) {
     console.log("Login error: ", error);
@@ -106,7 +102,6 @@ export const logoutController = async (
   res: Response,
 ): Promise<any> => {
   try {
-    res.clearCookie("Token");
     return res.status(200).send({
       msg: "Logout successful",
     });

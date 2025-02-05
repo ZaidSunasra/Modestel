@@ -5,14 +5,15 @@ import { useNavigate } from "react-router";
 
 export const useLogin = () => {
 
-    const {toast } = useToast();
-    const navigate =  useNavigate();
-    
+    const { toast } = useToast();
+    const navigate = useNavigate();
+
     return useMutation({
         mutationFn: login,
         onSuccess: (data: any) => {
             localStorage.setItem("Role", data.userData.role);
             localStorage.setItem("Username", data.userData.username);
+            localStorage.setItem("Token", data.userData.token);
             toast({
                 variant: "default",
                 title: data.msg,
@@ -32,7 +33,7 @@ export const useLogin = () => {
 
 export const AddUserAccount = () => {
 
-    const {toast } = useToast();
+    const { toast } = useToast();
     const queryClient = useQueryClient();
 
     return useMutation({
@@ -43,7 +44,7 @@ export const AddUserAccount = () => {
                 title: data.msg,
                 duration: 3000
             });
-            queryClient.invalidateQueries({ queryKey: ['all-accounts']});
+            queryClient.invalidateQueries({ queryKey: ['all-accounts'] });
         },
         onError: (error: any) => {
             toast({
@@ -56,7 +57,7 @@ export const AddUserAccount = () => {
 }
 
 export const DeleteUserAccount = () => {
-    const {toast } = useToast();
+    const { toast } = useToast();
     const queryClient = useQueryClient();
 
     return useMutation({
@@ -67,7 +68,7 @@ export const DeleteUserAccount = () => {
                 title: data.msg,
                 duration: 3000
             });
-            queryClient.invalidateQueries({ queryKey: ['all-accounts']});
+            queryClient.invalidateQueries({ queryKey: ['all-accounts'] });
         },
         onError: (error: any) => {
             toast({
@@ -81,14 +82,15 @@ export const DeleteUserAccount = () => {
 
 export const useLogout = () => {
 
-    const {toast } = useToast();
-    const navigate =  useNavigate();
-    
+    const { toast } = useToast();
+    const navigate = useNavigate();
+
     return useMutation({
         mutationFn: logout,
         onSuccess: (data: any) => {
-            localStorage.setItem("Role", "");
-            localStorage.setItem("Username", "");
+            localStorage.removeItem("Role");
+            localStorage.removeItem("Username");
+            localStorage.removeItem("Token");
             toast({
                 variant: "default",
                 title: data.msg,
