@@ -10,7 +10,7 @@ env.config({ path: path.join(__dirname, ".env") });
 
 app.use(
   cors({
-    origin: "http://localhost:1420",
+    origin: ["http://localhost:1420", "http://tauri.localhost"],
     credentials: true,
   }),
 );
