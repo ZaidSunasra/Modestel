@@ -6,8 +6,7 @@ import { Command } from '@tauri-apps/plugin-shell';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from "./context/theme";
 
-const command = Command.sidecar('binaries/backend', ["args", "if", "any"]);
-await command.spawn();
+Command.sidecar('binaries/backend').spawn();
 
 const queryClient = new QueryClient();
 

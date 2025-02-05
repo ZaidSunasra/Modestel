@@ -12,25 +12,29 @@ import MonthlyCollection from "@/pages/MonthlyCollectionPage"
 import Final from "@/pages/FinalPage"
 import ManageAccount from "@/pages/ManageAccountPage"
 
-const ProtectedRoute = ({ role, allowedRoles }: { role: string; allowedRoles: string[] }) => {
+const useAuth = () => {
+    const role = localStorage.getItem("Role") || "";
+    return { role };
+}
+
+const ProtectedRoute = ({ allowedRoles }: { allowedRoles: string[] }) => {
+    const { role } = useAuth();
     return allowedRoles.includes(role) ? <Outlet /> : <Navigate to="/" replace />;
 };
 
 export const Router = () => {
 
-    const role: string = localStorage.getItem("Role") || "";
-
     return <>
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<LoginPage />} />
-                <Route element={<ProtectedRoute role={role} allowedRoles={["admin", "receptionist", "user"]} />}>
+                <Route element={<ProtectedRoute allowedRoles={["admin", "receptionist", "user"]} />}>
                     <Route path="/dailyReport" element={<Report />} />
                     <Route path="/addReport" element={<AddReport />} />
                     <Route path="/editReport/:id" element={<EditReport />} />
                     <Route path="/dailyExpense" element={<DailyExpense />} />
                 </Route>
-                <Route element={<ProtectedRoute role={role} allowedRoles={["admin", "user"]} />}>
+                <Route element={<ProtectedRoute allowedRoles={["admin", "user"]} />}>
                     <Route path="/monthlyIncome" element={<MonthlyIncome />} />
                     <Route path="/monthlyExpense" element={<MonthlyExpense />} />
                     <Route path="/monthlyRoom" element={<MonthlyRoom />} />
