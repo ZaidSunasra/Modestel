@@ -3,7 +3,7 @@ import { SidebarTrigger } from "./ui/sidebar";
 import { Skeleton } from "./ui/skeleton";
 
 const Loading = ({ height, width, sideBar, button }: { height: string | number; width: string | number, sideBar: boolean, button: boolean }) => {
-    return <div className={sideBar ? "flex w-screen" : "flex"}>
+    return <div className={sideBar ? "flex w-screen bg-background" : "flex bg-background"}>
         {sideBar && <SideBar />}
         {sideBar && <SidebarTrigger />}
         <div className={sideBar ? "w-full p-4" : "w-full"}>
